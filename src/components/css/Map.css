@@ -1,0 +1,49 @@
+*{
+    /* color: rgb(255, 255, 255); */
+}
+
+.map{
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(107, 125, 140);
+}
+
+div, span{
+    font-size: 1.05em;
+}
+
+span{
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div{
+    line-height: 0px;
+}
+
+.bg_1{
+    font-size: 1.1em;
+}
+
+.bg_2, .bg_3{
+    font-size: 1.0em;
+}
+
+.bg_2{
+    color: rgb(95, 87, 79);
+    color: rgb(76, 91, 104);
+    color: rgb(184, 59, 59);
+}
+
+.bg_3{
+    color: rgb(62, 89, 80);
+    color: rgb(76, 91, 104);
+    color: rgb(11, 139, 11);
+}
+
+.player{
+    color: rgb(213, 219, 221);
+    font-size: 1em;
+}
