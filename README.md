@@ -1,3 +1,9 @@
+# Description
+
+This project is meant to be an expansion to the concept my team and I created for our Dev-10 capstone. Like the capstone, this will be a clone of the browser version of A Dark Room, a minimalist text adventure/resource management/exploration style game.
+I am not building on top of the existing capstone, and am instead taking that concept and developing it again, solo.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
