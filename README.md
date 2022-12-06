@@ -3,6 +3,9 @@
 This project is meant to be an expansion to the concept my team and I created for our Dev-10 capstone. Like the capstone, this will be a clone of the browser version of A Dark Room, a minimalist text adventure/resource management/exploration style game.
 I am not building on top of the existing capstone, and am instead taking that concept and developing it again, solo.
 
+# Packages
+
+seedrandom - Provides a random number generator that can be seeded, unlike javascript's normal rng. https://www.npmjs.com/package/seedrandom <br>
 
 # Getting Started with Create React App
 
