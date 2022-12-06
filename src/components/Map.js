@@ -12,9 +12,11 @@ export default function Map(){
     useEffect(() => {
         const newMap = new MapClass();
         newMap
-            .generateBaseMap(mapConfig.zoneSize, mapConfig.zonesPerRow)
+            .generateZones(mapConfig.zoneSize, mapConfig.zonesPerRow)
+            // .generateBaseMap()
             .build();
-
+        
+        console.log(newMap);
     }, []);
 
     return(

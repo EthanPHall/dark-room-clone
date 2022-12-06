@@ -1,0 +1,22 @@
+[
+    {
+        "name" : "bg_1",
+        "flavorName": "tundra",
+        "symbol": ".",
+        "priority": "-1"
+    },
+    {
+        "name" : "bg_2",
+        "flavorName": "plains",
+        "symbol": ",",
+        "priority": "0",
+        "percentage": ".75"
+    },
+    {
+        "name" : "bg_3",
+        "flavorName": "forest",
+        "symbol": ";",
+        "priority": "1",
+        "percentage": ".25"
+    }
+]

@@ -1,22 +1,33 @@
+import { Vector2 } from "./vector2";
+import { Zone } from "./zone";
+
 export class MapClass{
     constructor(){
     }
     
-    generateBaseMap(zoneSize, zonesPerRow){
-        this.unfinishedMap = [];
+    generateZones(zoneSize, zonesPerRow){
+        this.zones = [];
+        this.center = new Vector2(zoneSize*zonesPerRow/2, zoneSize*zonesPerRow/2);
 
+        for(let y = 0; y < zonesPerRow; y++){
+            for(let x = 0; x < zonesPerRow; x++){
+                const newZone = new Zone();
+                newZone.setTopLeft(new Vector2(x*zoneSize, y*zoneSize))
+                    .generatePoints(zoneSize)
+                    .calculateCenter()
+                    .calculateDistanceFromMapCenter(this.center)
+                    .build();
+                this.zones.push(newZone);
+            }
+        }
 
         return this;
     }
 
-    generateZones(){
-        this.zones = [];
+    generateBaseMap(){
+        this.unfinishedMap = [];
         
-        for(let x = 0; x < zonesPerRow; x++){
-            for(let y = 0; y < zonesPerRow; y++){
-                
-            }
-        }
+
 
         return this;
     }
