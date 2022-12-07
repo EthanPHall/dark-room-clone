@@ -15,4 +15,24 @@ export class Vector2{
     clone(){
         return new Vector2(this.x, this.y);
     }
+
+    compare(other){
+        if(!(other instanceof Vector2)){
+            return 0;
+        }
+
+        if(this.y < other.y){
+            return -1;
+        }else if (this.y > other.y){
+            return 1;
+        }else{
+            if(this.x < other.x){
+                return -1;
+            }else if (this.x > other.x){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+    }
 }

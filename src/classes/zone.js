@@ -36,6 +36,8 @@ export class Zone{
     }
 
     build(){
-        return this;
+        this.points.forEach(point => {
+            point.distance = this.distance;
+        });
     }
 }

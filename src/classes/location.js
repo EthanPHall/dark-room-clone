@@ -6,10 +6,11 @@
     * @param {number} y Initial y position
  */
  export class Location{
-    constructor(baseLocation, x, y){
+    constructor(baseLocation, x, y, distance){
         this.baseLocation = baseLocation;
         this.x = x;
         this.y = y;
+        this.distanceFromCenter = distance;
     }
 
     compareBaseLocations(otherLocation){
@@ -32,7 +33,7 @@
     }
 
     getClone(){
-        const result = new Location({...this.baseLocation}, this.x, this.y);
+        const result = new Location({...this.baseLocation}, this.x, this.y, this.distanceFromCenter);
         return result;
     }
 }
