@@ -1,5 +1,6 @@
 {
     "zoneSize": 11,
     "zonesPerRow": 5,
-    "seed": "123456789011"
+    "seed": "123456789011",
+    "seedLocationsToSizeRatio": 1
 }

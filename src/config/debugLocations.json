@@ -1,0 +1,14 @@
+[
+    {
+        "name" : "dbg_1",
+        "flavorName": "orange",
+        "symbol": "0",
+        "priority": "10"
+    },
+    {
+        "name" : "dbg_2",
+        "flavorName": "purple",
+        "symbol": "0",
+        "priority": "10"
+    }
+]

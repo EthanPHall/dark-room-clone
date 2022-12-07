@@ -1,4 +1,5 @@
 import { BGLocationFactory } from "./bgLocationFactory";
+import { SeedLocationDistributors } from "./seedLocationDistributors";
 import { Vector2 } from "./vector2";
 import { Zone } from "./zone";
 
@@ -63,7 +64,18 @@ export class MapClass{
         return this;
     }
 
-    generateBGLocations(){
+    generateBGLocations(bgLocationsRatio, rng){
+        //Get the seed locations
+        const factory = new BGLocationFactory();
+        const seedLocations = factory.getBackgrounds(this.size * bgLocationsRatio);
+
+        //Distribute seed locations across zones
+        const locationDistributor = new SeedLocationDistributors();
+        locationDistributor.evenDistribution(seedLocations, this.zones, this.unfinishedMap, rng);
+
+        //Grow the seed locations
+
+
         return this;
     }
 

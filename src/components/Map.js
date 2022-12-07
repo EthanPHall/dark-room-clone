@@ -17,6 +17,7 @@ export default function Map(){
         newMap
             .generateZones(mapConfig.zoneSize, mapConfig.zonesPerRow)
             .generateBaseMap()
+            .generateBGLocations(mapConfig.seedLocationsToSizeRatio, RNG)
             .build();
         
         setMap(newMap);

@@ -28,19 +28,23 @@ export class BGLocationFactory{
      * lists of a specific background location.
      */
     getBackgrounds(number){
-        const quotas = [];
-        let actualNumber = 0;
-        for(let i = 0; i < bgLocations.length; i++){
-            const currentQuota = Math.floor(parseFloat(bgLocations[i].percentage) * number);
-            quotas.push(currentQuota);
-            actualNumber += currentQuota;
-        }
+        const backgrounds = [];
 
-        const allLocations = [];
-        let currentBackground = bgLocations[1];
-        let currentLocations = [];
-        for(let i = 0; i < actualNumber; i++){
-            const newLocation = new Location()
-        }
+        bgLocations.forEach((bg, index) => {
+            if(index === 0){
+                return;
+            }          
+            
+            const quota = Math.floor(bg.percentage * number);
+            for(let i = 0; i < quota; i++){
+                if(!backgrounds[index]){
+                    backgrounds[index] = [];
+                }
+
+                backgrounds[index][i] = new Location({...bg}, undefined, undefined, undefined);
+            }
+        });
+
+        return backgrounds;
     }
 }
