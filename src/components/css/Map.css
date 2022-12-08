@@ -55,3 +55,11 @@ div{
 .debug1{
     color: blue;
 }
+
+.variable_difficulty, .medium_difficulty, .low_difficulty,
+.high_difficulty_1, .high_difficulty_2{
+    color: rgb(138, 138, 138);
+    position: relative;
+    top: 3px;
+    font-size: .9em;
+}

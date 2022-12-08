@@ -1,3 +1,4 @@
+import { BracketGenerator } from "./bracketGenerator";
 import { BGLocationFactory } from "./location_factories/bgLocationFactory";
 import { ExplorableLocationFactory } from "./location_factories/explorableLocationFactory";
 import { expandArea } from "./location_growth/expandAreaManager";
@@ -102,58 +103,31 @@ export class MapClass{
         const explorableLocations = factory.getLocations(this.size * expLocationsRatio);
 
         //Create distance brackets
-        const allDistances = [];
-        this.zones.forEach(zone => {
-            if(allDistances.indexOf(zone.distance) === -1){
-                allDistances.push(zone.distance);
-            }
-        });
-        allDistances.sort((a,b) => a-b);
-
-        const numberOfBrackets = factory.getDistanceBrackets();
-        const brackets = [];
+        const bracketGenerator = new BracketGenerator();
+        this.bracketedZones = bracketGenerator.generateBrackets(this.zones, factory.getDistanceBrackets());
         
-        if(allDistances.length > numberOfBrackets){
-            const distancesPerBracket = Math.floor(allDistances.length / numberOfBrackets);
-            let overflow = allDistances.length % numberOfBrackets;
-            for(let i = 0; i < numberOfBrackets; i++){
-                brackets[i] = [];
-                for(let j = 0; j < distancesPerBracket + (overflow > 0 ? 1 : 0); j++){
-                    brackets[i].push(allDistances.shift());
-                }
-    
-                overflow--;
-            }
-        }else{
-            const leftOverBrackets = numberOfBrackets - allDistances.length;
-            const originalDistancesLength = allDistances.length;
-            for(let i = 0; i < originalDistancesLength; i++){
-                brackets[i] = [];
-                brackets[i].push(allDistances.shift());
-            }
-
-            for(let i = originalDistancesLength; i < originalDistancesLength+leftOverBrackets; i++){
-                brackets[i] = brackets[i-1];
-            }
-        }
+        //Place the locations
         
-        //Map brackets, an array that hold arrays of distances, to an array that holds arrays of zones.
-        //TODO: Look into a more efficient way to do this. 
-        const bracketedZones = brackets.map(bracket => {
-            const newBracket = [];
-            bracket.forEach(distance => {
-                this.zones
-                .filter(zone => zone.distance === distance)
-                .forEach(zone2 => {
-                    if(zone2){
-                        newBracket.push(zone2);
-                    }
-                });
+        explorableLocations.forEach(locationArray => {
+            if(!locationArray){
+                return;
+            }
+            
+            let validPositions = [];
+            
+            locationArray[0].baseLocation.distanceBrackets.forEach(value => {
+                validPositions = validPositions.concat(this.bracketedZones[value]);
             });
 
-            return newBracket;
-        });
+            locationArray.forEach(location => {
+                const position = validPositions[Math.floor(rng() * validPositions.length)];
+                location.x = position.x;
+                location.y = position.y;
+                location.distance = position.distance;
 
+                this.unfinishedMap[location.y][location.x] = location;
+            });
+        });
 
         return this;
     }
