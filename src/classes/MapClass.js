@@ -1,4 +1,5 @@
 import { BGLocationFactory } from "./bgLocationFactory";
+import { expandArea } from "./location_growth/expandAreaManager";
 import { SeedLocationDistributors } from "./seedLocationDistributors";
 import { Vector2 } from "./vector2";
 import { Zone } from "./zone";
@@ -74,7 +75,22 @@ export class MapClass{
         locationDistributor.evenDistribution(seedLocations, this.zones, this.unfinishedMap, rng);
 
         //Grow the seed locations
+        let expandedAreas = [];
 
+        seedLocations.forEach((value) => {
+            value.forEach((location) => {
+                const area = expandArea(location, expandedAreas, rng);
+                expandedAreas = expandedAreas.concat(area);
+            });
+        });
+
+        expandedAreas.forEach(location => {
+            if(!this.unfinishedMap[location.y] || !this.unfinishedMap[location.x]){
+                return;
+            }
+
+            this.unfinishedMap[location.y][location.x] = location;
+        });
 
         return this;
     }

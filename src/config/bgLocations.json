@@ -10,13 +10,13 @@
         "flavorName": "plains",
         "symbol": ",",
         "priority": "0",
-        "percentage": ".75"
+        "percentage": ".7"
     },
     {
         "name" : "bg_3",
         "flavorName": "forest",
         "symbol": ";",
         "priority": "1",
-        "percentage": ".25"
+        "percentage": ".3"
     }
 ]

@@ -37,11 +37,11 @@ export class BGLocationFactory{
             
             const quota = Math.floor(bg.percentage * number);
             for(let i = 0; i < quota; i++){
-                if(!backgrounds[index]){
-                    backgrounds[index] = [];
+                if(!backgrounds[index - 1]){
+                    backgrounds[index - 1] = [];
                 }
 
-                backgrounds[index][i] = new Location({...bg}, undefined, undefined, undefined);
+                backgrounds[index - 1][i] = new Location({...bg}, undefined, undefined, undefined);
             }
         });
 
