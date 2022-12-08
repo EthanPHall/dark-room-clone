@@ -1,5 +1,5 @@
-import bgLocations from "../config/bgLocations.json";
-import { Location } from "./location";
+import bgLocations from "../../config/bgLocations.json";
+import { Location } from "../location";
 
 export class BGLocationFactory{
     constructor(){

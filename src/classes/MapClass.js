@@ -1,4 +1,5 @@
-import { BGLocationFactory } from "./bgLocationFactory";
+import { BGLocationFactory } from "./location_factories/bgLocationFactory";
+import { ExplorableLocationFactory } from "./location_factories/explorableLocationFactory";
 import { expandArea } from "./location_growth/expandAreaManager";
 import { SeedLocationDistributors } from "./seedLocationDistributors";
 import { Vector2 } from "./vector2";
@@ -95,7 +96,51 @@ export class MapClass{
         return this;
     }
 
-    generateExplorableLocations(){
+    generateExplorableLocations(expLocationsRatio, rng){
+        //Get the explorable locations
+        const factory = new ExplorableLocationFactory();
+        const explorableLocations = factory.getLocations(this.size * expLocationsRatio);
+
+        //Create distance brackets
+        const allDistances = [];
+        this.zones.forEach(zone => {
+            if(allDistances.indexOf(zone.distance) === -1){
+                allDistances.push(zone.distance);
+            }
+        });
+        allDistances.sort((a,b) => a-b);
+
+        console.log(allDistances);
+
+        const numberOfBrackets = factory.getDistanceBrackets();
+        const brackets = [];
+        
+        if(allDistances.length > numberOfBrackets){
+            const distancesPerBracket = Math.floor(allDistances.length / numberOfBrackets);
+            let overflow = allDistances.length % numberOfBrackets;
+            for(let i = 0; i < numberOfBrackets; i++){
+                brackets[i] = [];
+                for(let j = 0; j < distancesPerBracket + (overflow > 0 ? 1 : 0); j++){
+                    brackets[i].push(allDistances.shift());
+                }
+    
+                overflow--;
+            }
+        }else{
+            const leftOverBrackets = numberOfBrackets - allDistances.length;
+            const originalDistancesLength = allDistances.length;
+            for(let i = 0; i < originalDistancesLength; i++){
+                brackets[i] = [];
+                brackets[i].push(allDistances.shift());
+            }
+
+            for(let i = originalDistancesLength; i < originalDistancesLength+leftOverBrackets; i++){
+                brackets[i] = brackets[i-1];
+            }
+        }
+
+        console.log(brackets);
+
         return this;
     }
 

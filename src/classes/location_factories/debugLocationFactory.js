@@ -1,5 +1,5 @@
-import dbgLocations from "../config/debugLocations.json";
-import { Location } from "./location";
+import dbgLocations from "../../config/debugLocations.json";
+import { Location } from "../location";
 
 export class DebugLocationFactory{
     constructor(){

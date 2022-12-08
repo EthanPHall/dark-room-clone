@@ -19,6 +19,7 @@ export default function Map(){
             .generateZones(mapConfig.zoneSize, mapConfig.zonesPerRow)
             .generateBaseMap()
             .generateBGLocations(mapConfig.seedLocationsToSizeRatio, RNG)
+            .generateExplorableLocations(mapConfig.explorableLocationsToSizeRatio, RNG)
             .build();
         
         setMap(newMap);

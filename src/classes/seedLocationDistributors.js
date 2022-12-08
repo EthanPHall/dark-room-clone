@@ -42,6 +42,6 @@ export class SeedLocationDistributors{
             });            
         });
 
-        console.log(locations);
+        // console.log(locations);
     }
 }
