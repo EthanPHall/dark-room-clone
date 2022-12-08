@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import seedrandom from "seedrandom";
 import { FullMapRenderer } from "../classes/map-renderers/fullMapRenderer";
+import { HighlightZonesRenderer } from "../classes/map-renderers/highlightZonesRenderer";
 import { MapClass } from "../classes/MapClass";
 import mapConfig from "../config/mapConfig.json";
 import "./css/Map.css";
@@ -27,7 +28,7 @@ export default function Map(){
         if(map){
             console.log(map);
 
-            setRendered(mapRenderer.render(map.finishedMap));
+            setRendered(mapRenderer.render(map));
         }
     }, [map]);
 

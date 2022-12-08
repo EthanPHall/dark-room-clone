@@ -3,8 +3,10 @@ export class FullMapRenderer{
 
     }
 
-    render(mapArray){
+    render(mapObject){
         const rendered = [];
+
+        const mapArray = mapObject.finishedMap;
 
         for(let y = 0; y < mapArray.length; y++){
             const row = [];

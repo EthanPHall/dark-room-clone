@@ -47,3 +47,11 @@ div{
     color: rgb(213, 219, 221);
     font-size: 1em;
 }
+
+.debug0{
+    color: orange;
+}
+
+.debug1{
+    color: blue;
+}
