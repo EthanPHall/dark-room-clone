@@ -110,8 +110,6 @@ export class MapClass{
         });
         allDistances.sort((a,b) => a-b);
 
-        console.log(allDistances);
-
         const numberOfBrackets = factory.getDistanceBrackets();
         const brackets = [];
         
@@ -138,8 +136,24 @@ export class MapClass{
                 brackets[i] = brackets[i-1];
             }
         }
+        
+        //Map brackets, an array that hold arrays of distances, to an array that holds arrays of zones.
+        //TODO: Look into a more efficient way to do this. 
+        const bracketedZones = brackets.map(bracket => {
+            const newBracket = [];
+            bracket.forEach(distance => {
+                this.zones
+                .filter(zone => zone.distance === distance)
+                .forEach(zone2 => {
+                    if(zone2){
+                        newBracket.push(zone2);
+                    }
+                });
+            });
 
-        console.log(brackets);
+            return newBracket;
+        });
+
 
         return this;
     }
