@@ -76,6 +76,19 @@ div{
 
 .player{
     color: rgb(213, 219, 221);
+    animation: myAnim 2.5s linear 0s infinite normal forwards;
+}
+
+@keyframes myAnim {
+    0%,
+    100% {
+        transform: translateY(1px);
+    }
+	
+	50% {
+		transform: translateY(-2px);
+	}
+
 }
 
 .home{
