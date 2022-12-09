@@ -2,7 +2,9 @@ import { BigObstacleGenerator_Corner } from "./big-obstacle-generators/BOG_OneOf
 import { BracketGenerator } from "./bracketGenerator";
 import { ExplorableLocationDistributor } from "./explorableLocationDistributor";
 import { BGLocationFactory } from "./location_factories/bgLocationFactory";
+import { EndLocationFactory } from "./location_factories/endLocationFactory";
 import { ExplorableLocationFactory } from "./location_factories/explorableLocationFactory";
+import { HomeLocationFactory } from "./location_factories/homeLocationFactory";
 import { expandArea } from "./location_growth/expandAreaManager";
 import { SeedLocationDistributors } from "./seedLocationDistributors";
 import { Vector2 } from "./vector2";
@@ -123,10 +125,31 @@ export class MapClass{
     }
 
     generateHome(){
+        const factory = new HomeLocationFactory();
+        const home = factory.getHome();
+
+        console.log(home);
+
+        const centerIndex = new Vector2(Math.floor(this.center.x), Math.floor(this.center.y));
+
+        home.x = centerIndex.x;
+        home.y = centerIndex.y;
+
+        this.unfinishedMap[centerIndex.y][centerIndex.x] = home;
+        
         return this;
     }
-
+    
     generateEnd(){
+        const factory = new EndLocationFactory();
+        const end = factory.getEnd();
+        end.x = this.endSpawnPoint.x;
+        end.y = this.endSpawnPoint.y;
+        
+        console.log(end);
+
+        this.unfinishedMap[this.endSpawnPoint.y][this.endSpawnPoint.x] = end;
+
         return this;
     }
 

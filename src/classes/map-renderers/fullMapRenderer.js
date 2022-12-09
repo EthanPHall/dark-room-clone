@@ -12,7 +12,7 @@ export class FullMapRenderer{
             const row = [];
             for(let x = 0; x < mapArray.length; x++){
                 let location = mapArray[y][x];
-                
+
                 const potentialLocations = otherLocations.filter(other => {
                     return other && other.comparePositions(location);
                 });

@@ -43,11 +43,6 @@ div{
     color: rgb(11, 139, 11);
 }
 
-.player{
-    color: rgb(213, 219, 221);
-    font-size: 1em;
-}
-
 .debug0{
     color: orange;
 }
@@ -66,15 +61,27 @@ div{
 }
 
 .variable_difficulty, .medium_difficulty, .low_difficulty,
-.high_difficulty_1, .high_difficulty_2{
-    color: rgb(138, 138, 138);
+.high_difficulty_1, .high_difficulty_2, .big_obstacle, .end{
+    color: rgb(155, 155, 155);
     position: relative;
     top: 3px;
     font-size: .9em;
 }
 
-.player{
+.player, .home{
     position: relative;
     top: 3px;
     font-size: 1em;
+}
+
+.player{
+    color: rgb(213, 219, 221);
+}
+
+.home{
+    color: gold;
+}
+
+.end{
+    color: red;
 }

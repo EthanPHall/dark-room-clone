@@ -27,6 +27,8 @@ export default function Map(){
             .generateBGLocations(mapConfig.seedLocationsToSizeRatio, RNG)
             .generateExplorableLocations(mapConfig.explorableLocationsToSizeRatio, RNG)
             .generateBigObstacle(RNG)
+            .generateHome()
+            .generateEnd()
             .build();
         
         setMap(newMap);
