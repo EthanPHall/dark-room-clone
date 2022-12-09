@@ -1,4 +1,5 @@
 import { BracketGenerator } from "./bracketGenerator";
+import { ExplorableLocationDistributor } from "./explorableLocationDistributor";
 import { BGLocationFactory } from "./location_factories/bgLocationFactory";
 import { ExplorableLocationFactory } from "./location_factories/explorableLocationFactory";
 import { expandArea } from "./location_growth/expandAreaManager";
@@ -107,27 +108,8 @@ export class MapClass{
         this.bracketedZones = bracketGenerator.generateBrackets(this.zones, factory.getDistanceBrackets());
         
         //Place the locations
-        
-        explorableLocations.forEach(locationArray => {
-            if(!locationArray){
-                return;
-            }
-            
-            let validPositions = [];
-            
-            locationArray[0].baseLocation.distanceBrackets.forEach(value => {
-                validPositions = validPositions.concat(this.bracketedZones[value]);
-            });
-
-            locationArray.forEach(location => {
-                const position = validPositions[Math.floor(rng() * validPositions.length)];
-                location.x = position.x;
-                location.y = position.y;
-                location.distance = position.distance;
-
-                this.unfinishedMap[location.y][location.x] = location;
-            });
-        });
+        const distributor = new ExplorableLocationDistributor();
+        distributor.randomDistributor(explorableLocations, this.bracketedZones, this.unfinishedMap, rng);
 
         return this;
     }

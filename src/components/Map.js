@@ -12,6 +12,7 @@ export default function Map(){
 
     const [map, setMap] = useState(undefined);
     const [rendered, setRendered] = useState(<div>Map</div>)
+    const [hasRendered, setHasRendered] = useState(false);
     
     useEffect(() => {
         const newMap = new MapClass();
