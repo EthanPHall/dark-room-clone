@@ -1,0 +1,6 @@
+{
+    "name" : "big_obstacle",
+    "flavorName": "ravine",
+    "symbol": "R",
+    "priority": "9"
+}

@@ -1,3 +1,4 @@
+import { BigObstacleGenerator_Corner } from "./big-obstacle-generators/BOG_OneOfTheCorners";
 import { BracketGenerator } from "./bracketGenerator";
 import { ExplorableLocationDistributor } from "./explorableLocationDistributor";
 import { BGLocationFactory } from "./location_factories/bgLocationFactory";
@@ -114,7 +115,10 @@ export class MapClass{
         return this;
     }
 
-    generateBigObstacle(){
+    generateBigObstacle(rng){
+        const obstacleGenerator = new BigObstacleGenerator_Corner();
+        this.endSpawnPoint = obstacleGenerator.generateBigObstacle(this, rng);        
+
         return this;
     }
 

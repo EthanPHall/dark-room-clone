@@ -1,5 +1,5 @@
 export class BracketGenerator{
-    generateBrackets(zones, numberOfBrackets){
+    generateBrackets(zones, numberOfBrackets, distancesList = undefined){
         const allDistances = [];
         zones.forEach(zone => {
             if(allDistances.indexOf(zone.distance) === -1){
@@ -7,7 +7,7 @@ export class BracketGenerator{
             }
         });
         allDistances.sort((a,b) => a-b);
-    
+
         const brackets = [];
         
         if(allDistances.length > numberOfBrackets){
