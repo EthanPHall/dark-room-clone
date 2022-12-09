@@ -31,17 +31,17 @@ export class BigObstacleGenerator_Corner{
             point3 = new Vector2(topLeft.x, topLeft.y + cornerToUse.size - 1);
             finalSpawn = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y);
         }else if (topLeft.x < topLeft.y){
-            //Bottom right
-            point1 = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y);
-            point2 = new Vector2(topLeft.x, topLeft.y + cornerToUse.size - 1);
-            point3 = new Vector2(topLeft.x, topLeft.y);
-            finalSpawn = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y + cornerToUse.size - 1);
-        }else{
             //Bottom left
             point1 = new Vector2(topLeft.x, topLeft.y);
             point2 = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y + cornerToUse.size - 1);
             point3 = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y);
             finalSpawn = new Vector2(topLeft.x, topLeft.y + cornerToUse.size - 1);
+        }else{
+            //Bottom right
+            point1 = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y);
+            point2 = new Vector2(topLeft.x, topLeft.y + cornerToUse.size - 1);
+            point3 = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y + cornerToUse.size - 1);
+            finalSpawn = new Vector2(topLeft.x + cornerToUse.size - 1, topLeft.y + cornerToUse.size - 1);
         }
 
         //Draw line between positions
@@ -59,6 +59,10 @@ export class BigObstacleGenerator_Corner{
         const lineGen = new ExpandAreaConnect();
         let line = lineGen.runAlgorithm(location1, [location2], rng, 1,1,1);
         line.forEach(location => {
+            if(!mapObject.unfinishedMap[location.y] || !mapObject.unfinishedMap[location.x]){
+                return;
+            }
+
             location.obstacle = true;
             mapObject.unfinishedMap[location.y][location.x] = location;
         });
