@@ -55,6 +55,15 @@ div{
 .debug1{
     color: blue;
 }
+.debug2{
+    color: rgb(138, 138, 0);
+}
+.debug3{
+    color: rgb(30, 255, 0);
+}
+.debug4{
+    color: rgb(255, 0, 0);
+}
 
 .variable_difficulty, .medium_difficulty, .low_difficulty,
 .high_difficulty_1, .high_difficulty_2{
@@ -62,4 +71,10 @@ div{
     position: relative;
     top: 3px;
     font-size: .9em;
+}
+
+.player{
+    position: relative;
+    top: 3px;
+    font-size: 1em;
 }

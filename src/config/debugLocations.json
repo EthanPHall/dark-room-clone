@@ -10,5 +10,23 @@
         "flavorName": "purple",
         "symbol": "0",
         "priority": "10"
+    },
+    {
+        "name" : "dbg_3",
+        "flavorName": "yellow",
+        "symbol": "0",
+        "priority": "10"
+    },
+    {
+        "name" : "dbg_4",
+        "flavorName": "green",
+        "symbol": "0",
+        "priority": "10"
+    },
+    {
+        "name" : "dbg_5",
+        "flavorName": "red",
+        "symbol": "0",
+        "priority": "10"
     }
 ]

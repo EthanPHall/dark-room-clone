@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import seedrandom from "seedrandom";
 import { PlayerLocationFactory } from "../classes/location_factories/playerLocationFactory";
 import { FullMapRenderer } from "../classes/map-renderers/fullMapRenderer";
+import { HighlightDistanceBracketsRenderer } from "../classes/map-renderers/highlightDistanceBrackets";
 import { HighlightZonesRenderer } from "../classes/map-renderers/highlightZonesRenderer";
 import { MapClass } from "../classes/MapClass";
 import { Vector2 } from "../classes/vector2";
