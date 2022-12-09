@@ -76,13 +76,17 @@ div{
 
 .player{
     color: rgb(213, 219, 221);
-    animation: myAnim 2.5s linear 0s infinite normal forwards;
+}
+
+.floating{
+    animation: myAnim 1.5s linear 0s infinite normal forwards;
+    font-weight: bold;
 }
 
 @keyframes myAnim {
     0%,
     100% {
-        transform: translateY(1px);
+        transform: translateY(2px);
     }
 	
 	50% {
@@ -97,4 +101,5 @@ div{
 
 .end{
     color: red;
+    font-weight: bold;
 }

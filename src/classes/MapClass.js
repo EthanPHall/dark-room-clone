@@ -128,8 +128,6 @@ export class MapClass{
         const factory = new HomeLocationFactory();
         const home = factory.getHome();
 
-        console.log(home);
-
         const centerIndex = new Vector2(Math.floor(this.center.x), Math.floor(this.center.y));
 
         home.x = centerIndex.x;
@@ -146,8 +144,6 @@ export class MapClass{
         end.x = this.endSpawnPoint.x;
         end.y = this.endSpawnPoint.y;
         
-        console.log(end);
-
         this.unfinishedMap[this.endSpawnPoint.y][this.endSpawnPoint.x] = end;
 
         return this;
@@ -156,5 +152,33 @@ export class MapClass{
     build(){
         this.finishedMap = this.unfinishedMap;
         this.unfinishedMap = undefined;
+    }
+
+    modify_AddFloatingLocations(percentage, zonesToExclude, rng){
+        if(!this.finishedMap){
+            return;
+        }
+
+        const zonesToConsider = this.bracketedZones.filter((zone, index) => {
+            return !zonesToExclude.includes(index);
+        });
+
+        const pointsToConsider = zonesToConsider.reduce((prev, current) => {
+            const explorableLocations = current.filter(point => this.finishedMap[point.y][point.x].explorableData);
+            return prev.concat(explorableLocations);
+        }, []);
+
+        //TODO: Keep track of locations that have already been floated.
+        const numberOfFloating = Math.ceil(percentage * pointsToConsider.length);
+        for(let i = 0; i < numberOfFloating; i++){
+            const pointToMakeFloat = pointsToConsider[Math.floor(rng() * pointsToConsider.length)];
+            this.finishedMap[pointToMakeFloat.y][pointToMakeFloat.x].floating = true;
+        }
+
+        return this;
+    }
+
+    modify_Finish(){
+
     }
 }

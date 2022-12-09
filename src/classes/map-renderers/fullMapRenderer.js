@@ -32,7 +32,7 @@ export class FullMapRenderer{
                 row[x] = (
                     <span
                         key={`x${x} y${y}`}
-                        className={`${location.baseLocation.name} x${x} y${y}`}
+                        className={`${location.baseLocation.name} x${x} y${y} ${location.floating ? "floating" : ""}`}
                         >{location.baseLocation.symbol}</span>
                 );
             }
