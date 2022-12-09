@@ -31,6 +31,12 @@ export default function Map(){
             .generateEnd()
             .build();
         
+        newMap
+            .modify_AddFloatingLocations(mapConfig.floatingLocationsPerLocationTypePercentage, 
+                mapConfig.floatingLocationsExcludeBrackets, RNG)
+            .modify_Finish();
+        
+        console.log(newMap);
         setMap(newMap);
         
         const playerFactory = new PlayerLocationFactory();
@@ -68,7 +74,6 @@ export default function Map(){
 
     useEffect(() => {
         if(map){
-            console.log(map);
             setRendered(mapRenderer.render(map, [player]));
         }
     }, [map, player]);

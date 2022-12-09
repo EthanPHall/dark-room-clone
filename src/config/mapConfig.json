@@ -4,5 +4,6 @@
     "seed": "12345678901",
     "seedLocationsToSizeRatio": 1,
     "explorableLocationsToSizeRatio": 2,
-    "floatingLocationsPerLocationTypePercentage": ".1"
+    "floatingLocationsPerLocationTypePercentage": ".2",
+    "floatingLocationsExcludeBrackets": [0,1]
 }

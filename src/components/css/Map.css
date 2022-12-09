@@ -78,10 +78,28 @@ div{
     color: rgb(213, 219, 221);
 }
 
+.floating{
+    animation: myAnim 1.5s linear 0s infinite normal forwards;
+    font-weight: bold;
+}
+
+@keyframes myAnim {
+    0%,
+    100% {
+        transform: translateY(2px);
+    }
+	
+	50% {
+		transform: translateY(-2px);
+	}
+
+}
+
 .home{
     color: gold;
 }
 
 .end{
     color: red;
+    font-weight: bold;
 }
