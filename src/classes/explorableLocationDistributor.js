@@ -16,6 +16,10 @@ export class ExplorableLocationDistributor{
             let validPositions = [];
             
             locationArray[0].baseLocation.distanceBrackets.forEach(value => {
+                bracketedZones[value].forEach(location => {
+                    location.distanceBracket = value;
+                });
+
                 validPositions = validPositions.concat(bracketedZones[value]);
             });
 
@@ -24,6 +28,10 @@ export class ExplorableLocationDistributor{
                 location.x = position.x;
                 location.y = position.y;
                 location.distance = position.distance;
+
+                location.explorableData = {
+                    distanceBracket: position.distanceBracket
+                };
 
                 map[location.y][location.x] = location;
             });
