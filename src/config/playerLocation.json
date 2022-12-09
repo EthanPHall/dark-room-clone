@@ -1,0 +1,6 @@
+{
+    "name" : "player",
+    "flavorName": "player",
+    "symbol": "@",
+    "priority": "10"
+}

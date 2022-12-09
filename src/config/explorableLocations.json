@@ -1,0 +1,45 @@
+[
+    {
+        "numberOfBrackets": 5
+    },
+    {
+        "name" : "variable_difficulty",
+        "flavorName": "bunker",
+        "symbol": "B",
+        "priority": "4",
+        "percentage": ".35",
+        "distanceBrackets": [0,1,2,3,4]
+    },
+    {
+        "name" : "medium_difficulty",
+        "flavorName": "city",
+        "symbol": "C",
+        "priority": "4",
+        "percentage": ".25",
+        "distanceBrackets": [1,2,3]
+    },
+    {
+        "name" : "low_difficulty",
+        "flavorName": "house",
+        "symbol": "H",
+        "priority": "4",
+        "percentage": ".15",
+        "distanceBrackets": [0,1]
+    },
+    {
+        "name" : "high_difficulty_1",
+        "flavorName": "military base",
+        "symbol": "M",
+        "priority": "4",
+        "percentage": ".15",
+        "distanceBrackets": [3,4]
+    },
+    {
+        "name" : "high_difficulty_2",
+        "flavorName": "factory",
+        "symbol": "F",
+        "priority": "4",
+        "percentage": ".1",
+        "distanceBrackets": [4]
+    }
+]
