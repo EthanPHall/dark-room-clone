@@ -179,6 +179,6 @@ export class MapClass{
     }
 
     modify_Finish(){
-
+        //Just meant to signify that modifying is done. Does no actual work currently.
     }
 }
