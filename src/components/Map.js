@@ -4,14 +4,16 @@ import { PlayerLocationFactory } from "../classes/location_factories/playerLocat
 import { FullMapRenderer } from "../classes/map-renderers/fullMapRenderer";
 import { HighlightDistanceBracketsRenderer } from "../classes/map-renderers/highlightDistanceBrackets";
 import { HighlightZonesRenderer } from "../classes/map-renderers/highlightZonesRenderer";
+import { NearPlayerRenderer } from "../classes/map-renderers/nearPlayerRenderer";
 import { MapClass } from "../classes/MapClass";
 import { Vector2 } from "../classes/vector2";
 import mapConfig from "../config/mapConfig.json";
 import "./css/Map.css";
 
+const mapRenderer = new NearPlayerRenderer();
+
 export default function Map(){
     const RNG = seedrandom(mapConfig.seed);
-    const mapRenderer = new FullMapRenderer();
 
     const [map, setMap] = useState(undefined);
     const [rendered, setRendered] = useState(<div>Map</div>)
@@ -40,7 +42,9 @@ export default function Map(){
         setMap(newMap);
         
         const playerFactory = new PlayerLocationFactory();
-        setPlayer(playerFactory.getPlayer(newMap.size));
+        const newPlayer = playerFactory.getPlayer(newMap.size);
+        newPlayer.isPlayer = true;
+        setPlayer(newPlayer);
 
         //Set up player movement
         if(!movementHasBeenSetUp){
@@ -83,6 +87,7 @@ export default function Map(){
             const newPlayer = prev.getClone();
             newPlayer.x += positionDelta.x;
             newPlayer.y += positionDelta.y;
+            newPlayer.isPlayer = true;
 
             return newPlayer;
         });
