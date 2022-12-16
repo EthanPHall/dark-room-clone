@@ -5,22 +5,25 @@ import { FullMapRenderer } from "../classes/map-renderers/fullMapRenderer";
 import { HighlightDistanceBracketsRenderer } from "../classes/map-renderers/highlightDistanceBrackets";
 import { HighlightZonesRenderer } from "../classes/map-renderers/highlightZonesRenderer";
 import { NearPlayerRenderer } from "../classes/map-renderers/nearPlayerRenderer";
+import { NearPlayerRenderer_FogOfWar } from "../classes/map-renderers/nearPlayerRenderer_FogOfWar";
 import { MapClass } from "../classes/MapClass";
 import { Vector2 } from "../classes/vector2";
 import mapConfig from "../config/mapConfig.json";
 import "./css/Map.css";
 
-const mapRenderer = new NearPlayerRenderer();
+//This needs to be out here because we don't want the renderer resetting every time this component
+//saves.    
+const mapRenderer = new NearPlayerRenderer_FogOfWar(mapConfig.zonesPerRow * mapConfig.zoneSize);
 
 export default function Map(){
     const RNG = seedrandom(mapConfig.seed);
 
     const [map, setMap] = useState(undefined);
-    const [rendered, setRendered] = useState(<div>Map</div>)
+    const [rendered, setRendered] = useState(<div>Map</div>);
     const [hasRendered, setHasRendered] = useState(false);
-    const [player, setPlayer] = useState()
+    const [player, setPlayer] = useState();
     const [movementHasBeenSetUp, setMovementHasBeenSetUp] = useState(false);
-    
+        
     useEffect(() => {
         const newMap = new MapClass();
         newMap
