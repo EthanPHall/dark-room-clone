@@ -1,6 +1,7 @@
 import seedrandom from "seedrandom";
 import { ExpandAreaCircular } from "../location_growth/expandAreaCircular";
 import { BlankLocationFactory } from "../location_factories/blankLocationFactory";
+import { manager } from "../saveManager";
 
 /**
  * A more efficient renderer than the FullMapRenderer
@@ -10,9 +11,16 @@ export class NearPlayerRenderer_FogOfWar{
         this.hasRenderedFully = false;
         this.maxDistance = revealDistance;
         this.revealDistance = revealDistance;
-        this.revealedArray = new Array(mapSize)
-            .fill(false)
-            .map(() => new Array(mapSize).fill(false));
+
+        const revealedArray = manager.read("revealedArray");
+
+        if(revealedArray){
+            this.revealedArray = revealedArray;
+        }else{  
+            this.revealedArray = new Array(mapSize)
+                .fill(false)
+                .map(() => new Array(mapSize).fill(false));
+        }
     }
 
     render(mapObject, otherLocations = []){
@@ -46,6 +54,8 @@ export class NearPlayerRenderer_FogOfWar{
                 this.revealedArray[location.y][location.x] = true;
             }
         });
+
+        manager.write("revealedArray", this.revealedArray);
         
         for(let y = 0; y < mapArray.length; y++){
             
