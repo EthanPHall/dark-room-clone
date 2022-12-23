@@ -1,0 +1,35 @@
+[
+    {
+        "title": "A Worn House",
+        "screenSpecs": [
+            {
+                "type": "intro"
+            },
+            {
+                "type": "combat",
+                "difficulty": 1
+            },
+            {
+                "type": "loot"
+            },
+            {
+                "type": "end"
+            }
+        ]
+    },
+    {
+        "title": "A Lonely House",
+        "screenSpecs": [
+            {
+                "type": "intro"
+            },
+            {
+                "type": "loot",
+                "quality": 1
+            },
+            {
+                "type": "end"
+            }
+        ]
+    }
+]
