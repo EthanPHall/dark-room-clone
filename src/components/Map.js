@@ -51,7 +51,6 @@ export default function Map(){
         
         const playerFactory = new PlayerLocationFactory();
         const newPlayer = playerFactory.getPlayer(newMap.size);
-        newPlayer.isPlayer = true;
         setPlayer(newPlayer);
 
         //Set up player movement
@@ -106,11 +105,10 @@ export default function Map(){
                 return prev;
             }
 
-            const newPlayer = prev.getClone();
+            const newPlayer = prev.getFullClone();
             newPlayer.prev = new Vector2(newPlayer.x, newPlayer.y);
             newPlayer.x += positionDelta.x;
             newPlayer.y += positionDelta.y;
-            newPlayer.isPlayer = true;
             newPlayer.movedLastTurn = true;
 
             return newPlayer;
@@ -154,7 +152,7 @@ export default function Map(){
                 <LocationPopupManager 
                     popupTrigger={popupTrigger} 
                     untriggerPopup={untriggerLocationPopup} 
-                    seed={mapConfig.seed}></LocationPopupManager>
+                    player={player}></LocationPopupManager>
             </div>
         </>
     )

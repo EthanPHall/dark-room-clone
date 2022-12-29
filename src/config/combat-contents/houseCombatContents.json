@@ -1,0 +1,10 @@
+[
+    {
+        "name": "house-combat-tier-1",
+        "combatant": "house-tier-1"
+    },
+    {
+        "name": "house-combat-tier-2",
+        "combatant": "house-tier-2"
+    }
+]

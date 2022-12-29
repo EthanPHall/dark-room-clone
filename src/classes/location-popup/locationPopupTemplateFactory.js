@@ -8,8 +8,6 @@ export class LocationPopupTemplateFatory{
     }
 
     getTemplate(location){
-        console.log(location);
-        
         switch(location.baseLocation.flavorName){
             case "house":
                 return this.houseFactory.getTemplate(this.rng);
