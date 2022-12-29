@@ -183,6 +183,10 @@
 .back-btn:active:hover{
     background-color: rgb(205, 136, 136);
 }
+.back-btn:active:disabled, .back-btn:disabled{
+    background-color: rgb(135, 116, 116);
+    color: rgb(202, 202, 202);
+}
 
 .continue-btn{
     background-color: rgb(187, 245, 176);
@@ -192,4 +196,8 @@
 }
 .continue-btn:active:hover{
     background-color: rgb(147, 205, 136);
+}
+.continue-btn:active:disabled, .continue-btn:disabled{
+    background-color: rgb(119, 144, 114);
+    color: rgb(202, 202, 202);
 }

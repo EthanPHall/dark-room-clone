@@ -182,8 +182,8 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     </h3>
                     {content}
                     <div className="buttons">
-                        <button className="popup-btn back-btn" onClick={close}>Back</button>
-                        <button className="popup-btn continue-btn" onClick={next}>Continue</button>
+                        <button className="popup-btn back-btn" onClick={close} disabled={screenIndex !== 0}>Back</button>
+                        <button className="popup-btn continue-btn" onClick={next} disabled={false}>Continue</button>
                     </div>
                 </div>
             </div>
