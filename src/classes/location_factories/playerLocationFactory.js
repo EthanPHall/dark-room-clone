@@ -10,7 +10,14 @@ export class PlayerLocationFactory{
             "hpMax": 5,
             "damage": 1,
             "attackDelay": 1,
-            "numberOfAttacks": 1,
+            "weapons": [
+                {name: "Fists", damage:1, cooldown: 1.5},
+                {name: "Fists", damage:1, cooldown: 1.5},
+                {name: "Fists", damage:1, cooldown: 1.5},
+                {name: "Fists", damage:1, cooldown: 1.5},
+                {name: "Fists", damage:1, cooldown: 1.5},
+                {name: "Fists", damage:1, cooldown: 1.5},
+            ],
             "icon": "@",    
         }
 

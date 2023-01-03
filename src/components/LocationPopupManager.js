@@ -20,6 +20,8 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
     const [screenIndex, setScreenIndex] = useState(-1);
     const [screen, setScreen] = useState(undefined);
     const [update, setUpdate] = useState({name: "update"});
+    const [weaponsOnCooldown, setWeaponsOnCooldown] = useState({});
+    const [attacking, setAttacking] = useState("uninitialized");
     
     useEffect(() => {
         if(popupTrigger){
@@ -60,6 +62,12 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
         }
     }, [screenIndex]);
 
+    useEffect(() => {
+        if(attacking === "no"){
+            setAttacking("attacking");
+        }
+    }, [attacking]);
+
     function generateScreen(){
         let content;
 
@@ -73,13 +81,48 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                 const enemy = popupTrigger.enemyCombatant;
                 const pCombat = player.combatantStats;
 
+                function attack(evt){
+
+                    const target = evt.target;
+                    const index = target.getAttribute("weapon-index");
+
+                    enemy.hp -= target.getAttribute("damage");
+
+                    //It gets reset in a useeffect. This basically removes then quickly adds back the class,
+                    //restarting teh attack animation.
+                    setAttacking("no");
+
+                    setWeaponsOnCooldown(prev => {
+                        const newList = {...prev};
+                        newList[index] = true;
+
+                        return newList;
+                    });
+
+                    //The player shouldn't be able to just spam the attack button, so each weapon/attack will
+                    //have a cooldown associated with it. So, we add the specific attack instance to a 
+                    //cooldown list (above), and remove it from that list after the cooldown period is up (below).
+                    setTimeout(() => {
+                        console.log("timeout done");
+
+                        setWeaponsOnCooldown(prev => {
+                            const newList = {...prev};
+                            newList[index] = false;
+                            
+                            console.log(newList);
+                            
+                            return newList;
+                        });
+                    }, target.getAttribute("cooldown") * 1000);
+                }
+
                 content = (
                     <div className="content">
                         <div className="text-panel">
                             {enemy.flavorText}
                         </div>
                         <div className="action-panel">
-                            <div className="combatant">
+                            <div className={`combatant ${attacking}`}>
                                 <div className="combatant-icon">{pCombat.icon}</div>
                                 <div className="combatant-health">{`${pCombat.hp}/${pCombat.hpMax}`}</div>
                             </div>
@@ -88,8 +131,38 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                 <div className="combatant-health">{`${enemy.hp}/${enemy.hpMax}`}</div>
                             </div>
                         </div>
-                        <div className="controls-panel">
-                            <button className="attack-button">Attack</button>
+                        <div className="attacks-panel">
+                            {pCombat.weapons.map((weapon, index) => {
+                                let style;
+                                if(index % 2 === 0){ 
+                                    style = {
+                                        "top": `${5 + 30 * Math.floor(index / 2)}%`, 
+                                        "left": `10%`,
+                                    }
+                                }else{
+                                    style = {
+                                        "top": `${5 + 30 * Math.floor(index / 2)}%`, 
+                                        "right": `10%`,
+                                    }
+                                }
+
+                                return (
+                                    <div className="attack-button-holder">
+                                        <button 
+                                            style={style} 
+                                            className="attack-button" 
+                                            onClick={attack} 
+                                            weapon-index={index} 
+                                            cooldown={weapon.cooldown} 
+                                            damage={weapon.damage}
+                                            /*disabled={weaponsOnCooldown[index]}*/>{weapon.name}</button>
+                                        <div
+                                            style={style}
+                                            className="attack-button-cooldown-graphic" 
+                                            showcooldown={weaponsOnCooldown[index] ? "yes" : "no"}></div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 );

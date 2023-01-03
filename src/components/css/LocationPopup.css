@@ -62,7 +62,7 @@
 }
 
 .action-panel{
-    border: 3px solid rgb(0, 0, 0);
+    /* border: 3px solid rgb(0, 0, 0); */
 
     width: 100%;
     height: 25%;
@@ -201,3 +201,78 @@
     background-color: rgb(119, 144, 114);
     color: rgb(202, 202, 202);
 }
+
+
+.attacks-panel{
+    position: relative;
+
+    /* border: 3px solid rgb(51, 255, 0); */
+
+    width: 100%;
+    height: 45%;
+    line-height: normal;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+    .attack-button-holder{
+        /* border: 3px solid rgb(255, 0, 0); */
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .attack-button-cooldown-graphic, .attack-button{
+        position: absolute;
+
+        width: 35%;
+        height: 20%;
+
+        /* Position is determined inline in LocationPopupManager.js */
+    }
+
+    .attack-button-cooldown-graphic{
+        background-color: rgba(128, 128, 128, 0);
+        z-index: -1;
+    }
+    .attack-button-cooldown-graphic[showcooldown="yes"]{
+        background-color: rgba(128, 128, 128, .5);
+        z-index: 2;
+    }
+
+    .attack-button{
+        background-color: rgb(248, 248, 248);
+        z-index: 1;
+    }
+    .attack-button:hover{
+        background-color: rgb(232, 232, 232);
+    }
+    .attack-button:active:hover{
+        background-color: rgb(210, 210, 210);
+    }
+    .attack-button~.attack-button{
+        margin-top: 2%;
+    }
+    .attack-button:disabled{
+        background-color: rgb(210, 210, 210);
+    }
+.attacking{
+    animation: PlayerAttackAnim;
+    animation-duration: .4s;
+}
+
+@keyframes PlayerAttackAnim {
+        0%{
+            transform: translateX(0%);
+        }
+        50% {
+            transform: translateX(40%);
+        }
+        /* 100% {
+            transform: translateX(0%);
+        } */
+    }
+    
