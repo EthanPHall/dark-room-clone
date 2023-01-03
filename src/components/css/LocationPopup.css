@@ -260,8 +260,20 @@
         background-color: rgb(210, 210, 210);
     }
 .attacking{
-    animation: PlayerAttackAnim;
-    animation-duration: .4s;
+    animation: PlayerAttackAnim .4s;
+}
+.enemy-attacking{
+    animation: EnemyAttackAnim .4s;
+}
+.enemy-attacking-2{
+    /*
+        Why do there need to be 2 separate animations??? If I only use EnemyAttackAnim,
+        then the component with this class AND the regular class doesn't actually get animated.
+    */
+    animation: EnemyAttackAnim2 .4s;
+}
+.death{
+    animation: DeathAnim .5s forwards;
 }
 
 @keyframes PlayerAttackAnim {
@@ -271,8 +283,29 @@
         50% {
             transform: translateX(40%);
         }
-        /* 100% {
+    }
+@keyframes EnemyAttackAnim {
+        0%{
             transform: translateX(0%);
-        } */
+        }
+        50% {
+            transform: translateX(-40%);
+        }
+    }
+@keyframes EnemyAttackAnim2 {
+        0%{
+            transform: translateX(0%);
+        }
+        50% {
+            transform: translateX(-40%);
+        }
+    }
+@keyframes DeathAnim {
+        0%{
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
     

@@ -22,7 +22,14 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
     const [update, setUpdate] = useState({name: "update"});
     const [weaponsOnCooldown, setWeaponsOnCooldown] = useState({});
     const [attacking, setAttacking] = useState("uninitialized");
+    const [enemyAttacking, setEnemyAttacking] = useState("uninitialized");
     
+    useEffect(() => {
+        if(popupTrigger && popupTrigger.enemyCombatant && popupTrigger.enemyCombatant.attackTimeout){
+            clearInterval(popupTrigger.enemyCombatant.attackTimeout);
+        }
+    }, []);
+
     useEffect(() => {
         if(popupTrigger){
             if(popupTrigger.cleared){
@@ -70,6 +77,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
 
     function generateScreen(){
         let content;
+        let disableContinue = false;
 
         //TODO: Replace this with a simple factory class
         switch(screen.type){
@@ -78,11 +86,48 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     popupTrigger.enemyCombatant = combatantFactory.getCombatant(popupTrigger);
                 }
                 
-                const enemy = popupTrigger.enemyCombatant;
                 const pCombat = player.combatantStats;
+                
+                const enemy = popupTrigger.enemyCombatant;
+                if(enemy.hp <= 0){
+                    disableContinue = false;
+                    
+                }else{
+                    disableContinue = true;
+
+                    //The outer timeout creates a delay, so the enemy doesn't just attack immediately.
+                    //Then, an interval is started so that the enemy continues to attack from then on,
+                    //until it reaches 0 hp.
+                    if(!enemy.attackTimeout){
+                        enemy.attackTimeout = setTimeout(() => {
+                            pCombat.hp -= enemy.damage;
+                            setEnemyAttacking(prev => {
+                                if(prev === "enemy-attacking"){
+                                    return "enemy-attacking-2";
+                                }else{
+                                    return "enemy-attacking";
+                                }
+                            });
+
+                            enemy.attackTimeout = setInterval(() => {
+                                if(enemy.hp > 0){
+                                    pCombat.hp -= enemy.damage;
+                                    setEnemyAttacking(prev => {
+                                        if(prev === "enemy-attacking"){
+                                            return "enemy-attacking-2";
+                                        }else{
+                                            return "enemy-attacking";
+                                        }
+                                    })
+                                }else{
+                                    clearInterval(enemy.attackTimeout);
+                                } 
+                            }, enemy.attackDelay * 1000)
+                        }, enemy.attackDelay * 1000);
+                    }
+                }
 
                 function attack(evt){
-
                     const target = evt.target;
                     const index = target.getAttribute("weapon-index");
 
@@ -126,7 +171,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                 <div className="combatant-icon">{pCombat.icon}</div>
                                 <div className="combatant-health">{`${pCombat.hp}/${pCombat.hpMax}`}</div>
                             </div>
-                            <div className="combatant">
+                            <div className={`combatant ${enemy.hp <= 0 ? "death" : ""} ${enemyAttacking}`}>
                                 <div className="combatant-icon">{enemy.icon}</div>
                                 <div className="combatant-health">{`${enemy.hp}/${enemy.hpMax}`}</div>
                             </div>
@@ -136,12 +181,12 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                 let style;
                                 if(index % 2 === 0){ 
                                     style = {
-                                        "top": `${5 + 30 * Math.floor(index / 2)}%`, 
+                                        "top": `${15 + 30 * Math.floor(index / 2)}%`, 
                                         "left": `10%`,
                                     }
                                 }else{
                                     style = {
-                                        "top": `${5 + 30 * Math.floor(index / 2)}%`, 
+                                        "top": `${15 + 30 * Math.floor(index / 2)}%`, 
                                         "right": `10%`,
                                     }
                                 }
@@ -256,7 +301,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     {content}
                     <div className="buttons">
                         <button className="popup-btn back-btn" onClick={close} disabled={screenIndex !== 0}>Back</button>
-                        <button className="popup-btn continue-btn" onClick={next} disabled={false}>Continue</button>
+                        <button className="popup-btn continue-btn" onClick={next} disabled={disableContinue}>Continue</button>
                     </div>
                 </div>
             </div>
