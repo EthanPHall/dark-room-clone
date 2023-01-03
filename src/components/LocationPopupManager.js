@@ -240,7 +240,12 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     popupTrigger.lootObject = lootObject;
                 }
                 
-                function removeItem(evt){
+                function removeItemBulk(evt){
+                    //If this event wasn't triggered by the left mouse button, return without ddoing anything.
+                    if(evt.button !== 0){
+                        return;
+                    }
+
                     const name = evt.target.getAttribute("name");
 
                     let toRemoveIndex = -1;
@@ -256,7 +261,29 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
 
                     setUpdate(prev => {return {...prev}});
                 }
-        
+                function removeItemSingle(evt){
+                    evt.stopPropagation();
+                    evt.preventDefault();
+
+                    const name = evt.target.getAttribute("name");
+
+                    let toRemoveIndex = -1;
+                    popupTrigger.loot.forEach((item, index) => {
+                        if(item.name === name){
+                            item.quantity -= 1;
+                            if(item.quantity <= 0){
+                                toRemoveIndex = index;
+                            }
+                        }
+                    });
+    
+                    if(toRemoveIndex !== -1){
+                        popupTrigger.loot.splice(toRemoveIndex, 1);
+                    }
+
+                    setUpdate(prev => {return {...prev}});
+                }
+
                 content = (
                     <div className="content">
                         <div className="text-panel">
@@ -266,7 +293,8 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                             {popupTrigger.loot.map(item => {
                                 return(
                                     <button name={item.name} 
-                                        onClick={removeItem} 
+                                        onMouseDown={removeItemBulk}
+                                        onContextMenu={removeItemSingle}
                                         className="item-button">
                                             {`${item.flavorName} x${item.quantity}`}
                                     </button>
