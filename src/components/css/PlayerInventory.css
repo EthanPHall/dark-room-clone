@@ -52,3 +52,24 @@
 .inventory-capacity{
     right: 1%;
 }
+
+.inventory-tooltip{
+    position: absolute;
+    border: 3px solid rgb(0, 0, 0);
+    background-color: #e5e5e5;
+    line-height: normal;
+    color: rgb(31, 31, 31);
+    z-index: 5;
+    font-size: small;
+
+    opacity: 0;
+    transition: opacity .3s;
+
+    top:100%;
+}
+
+.inventory-item-text:hover + .inventory-tooltip{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .3s;
+}

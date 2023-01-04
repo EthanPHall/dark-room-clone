@@ -3,6 +3,7 @@ import "../../components/css/PlayerInventory.css";
 const ENTRIES_PER_ROW = 5;
 const NUMBER_OF_ROWS = 2;
 const HORIZONTAL_INCREMENT = 100 / ENTRIES_PER_ROW;
+const TOOLTIP_VERTCIAL_OFFSET = 85;
 
 function PlayerInventory({inventory, maxCapacity, currentWeight, setPlayer}){
     
@@ -60,13 +61,25 @@ function PlayerInventory({inventory, maxCapacity, currentWeight, setPlayer}){
                         top: `${15 + 45 * Math.floor(index / ENTRIES_PER_ROW)}%`,
                         left: `${HORIZONTAL_INCREMENT * (index % ENTRIES_PER_ROW)}%`,
                     };
+                    const tooltipStyle = {
+                        top: `${TOOLTIP_VERTCIAL_OFFSET + 15 + 45 * Math.floor(index / ENTRIES_PER_ROW)}%`,
+                        left: `${HORIZONTAL_INCREMENT * (index % ENTRIES_PER_ROW)}%`,
+                    };
 
                     return <div className="inventory-item"
-                    style={style}
-                    onMouseDown={dropAll}
-                    onContextMenu={drop1}
-                    itemname={item.name}>
-                        {`${item.flavorName} x${item.quantity}`}
+                            style={style}>
+
+                        <div className="inventory-item-text"
+                            onMouseDown={dropAll}
+                            onContextMenu={drop1}
+                            itemname={item.name}>
+                                {`${item.flavorName} x${item.quantity}`}
+                        </div>
+                        <div className="inventory-tooltip"
+                            >
+                            left-click: drop all <br></br>
+                            right-click: drop 1
+                        </div>
                     </div>;
                 })}
             </div>
