@@ -8,6 +8,7 @@ import { HighlightZonesRenderer } from "../classes/map-renderers/highlightZonesR
 import { NearPlayerRenderer } from "../classes/map-renderers/nearPlayerRenderer";
 import { NearPlayerRenderer_FogOfWar } from "../classes/map-renderers/nearPlayerRenderer_FogOfWar";
 import { MapClass } from "../classes/MapClass";
+import PlayerInventory from "../classes/player-inventory/PlayerInventory";
 import { Vector2 } from "../classes/vector2";
 import mapConfig from "../config/mapConfig.json";
 import "./css/Map.css";
@@ -146,14 +147,19 @@ export default function Map(){
     locationHandler.triggerLocationPopup = triggerLocationPopup;
 
     return(
-        <>
+        <div>
+            <PlayerInventory 
+                inventory={player ? player.inventory : undefined} 
+                maxCapacity={player ? player.maxCapacity : undefined}
+                currentWeight={player ? player.currentWeight : undefined}
+                ></PlayerInventory>
             <div className="map">
                 {rendered}
                 <LocationPopupManager 
                     popupTrigger={popupTrigger} 
                     untriggerPopup={untriggerLocationPopup} 
-                    player={player}></LocationPopupManager>
+                    player={player} setPlayer={setPlayer}></LocationPopupManager>
             </div>
-        </>
+        </div>
     )
 }

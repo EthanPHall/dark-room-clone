@@ -20,6 +20,19 @@ export class PlayerLocationFactory{
             ],
             "icon": "@",    
         }
+        newPlayer.inventory = {
+            // "food-1" : {"flavorName": "food-1", "quantity": 9},
+            // "food-2" : {"flavorName": "food-2", "quantity": 9},
+            // "food-3" : {"flavorName": "food-3", "quantity": 9},
+            // "food-4" : {"flavorName": "food-4", "quantity": 9},
+            // "food-5" : {"flavorName": "food-5", "quantity": 9},
+            // "food-6" : {"flavorName": "food-6", "quantity": 9},
+            // "food-7" : {"flavorName": "food-7", "quantity": 9},
+            // "food-8" : {"flavorName": "food-8", "quantity": 9},
+            // "food-9" : {"flavorName": "food-9", "quantity": 9},
+        };
+        newPlayer.maxCapacity = 15;
+        newPlayer.currentWeight = 0;
 
         return newPlayer;
     }

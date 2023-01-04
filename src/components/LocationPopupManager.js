@@ -16,7 +16,7 @@ const templateFactory = new LocationPopupTemplateFatory(rng);
 const screenFactory = new ScreenFactory(rng);
 const combatantFactory = new CombatantFactory(rng);
 
-export default function LocationPopupManager({popupTrigger, untriggerPopup, player}){    
+export default function LocationPopupManager({popupTrigger, untriggerPopup, player, setPlayer}){    
     const [screenIndex, setScreenIndex] = useState(-1);
     const [screen, setScreen] = useState(undefined);
     const [update, setUpdate] = useState({name: "update"});
@@ -74,6 +74,23 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
             setAttacking("attacking");
         }
     }, [attacking]);
+
+    useEffect(() => {
+        if(player){
+            setPlayer(player.getFullClone());
+        }
+    }, [update]);
+
+    function calculatePlayerWeight(){
+        let currentWeight = 0;
+        
+        Object.keys(player.inventory).forEach((key) => {
+            const weightMult = player.inventory[key].weight ? player.inventory[key].weight : 1;
+            currentWeight += player.inventory[key].quantity * weightMult;
+        }, 0);
+
+        return currentWeight;
+    }
 
     function generateScreen(){
         let content;
@@ -241,8 +258,46 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                 }
                 
                 function removeItemBulk(evt){
-                    //If this event wasn't triggered by the left mouse button, return without ddoing anything.
+                    //If this event wasn't triggered by the left mouse button, return without doing anything.
                     if(evt.button !== 0){
+                        return;
+                    }
+
+                    const name = evt.target.getAttribute("name");
+                    
+                    let toRemoveIndex = -1;
+                    popupTrigger.loot.forEach((item, index) => {
+                        if(item.name === name){
+                            const remaining = Math.max(player.maxCapacity - player.currentWeight, 0);
+                            const increment = Math.min(item.quantity, remaining);
+                            item.quantity -= increment;
+
+                            if(player.inventory[item.name]){
+                                player.inventory[item.name].quantity += increment;
+                            }else{
+                                player.inventory[item.name] = {...item};
+                                player.inventory[item.name].quantity = increment;
+                            }
+
+                            if(item.quantity <= 0){
+                                toRemoveIndex = index;
+                            }
+                        }
+                    });
+                    
+                    if(toRemoveIndex !== -1){
+                        popupTrigger.loot.splice(toRemoveIndex, 1);
+                    }
+                    
+                    player.currentWeight = calculatePlayerWeight();
+
+                    setUpdate(prev => {return {...prev}});
+                }
+                function removeItemSingle(evt){
+                    evt.stopPropagation();
+                    evt.preventDefault();
+
+                    if(player.currentWeight >= player.maxCapacity){
                         return;
                     }
 
@@ -251,26 +306,15 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     let toRemoveIndex = -1;
                     popupTrigger.loot.forEach((item, index) => {
                         if(item.name === name){
-                            toRemoveIndex = index;
-                        }
-                    });
-    
-                    if(toRemoveIndex !== -1){
-                        popupTrigger.loot.splice(toRemoveIndex, 1);
-                    }
-
-                    setUpdate(prev => {return {...prev}});
-                }
-                function removeItemSingle(evt){
-                    evt.stopPropagation();
-                    evt.preventDefault();
-
-                    const name = evt.target.getAttribute("name");
-
-                    let toRemoveIndex = -1;
-                    popupTrigger.loot.forEach((item, index) => {
-                        if(item.name === name){
                             item.quantity -= 1;
+
+                            if(player.inventory[item.name]){
+                                player.inventory[item.name].quantity += 1;
+                            }else{
+                                player.inventory[item.name] = {...item};
+                                player.inventory[item.name].quantity = 1;
+                            }
+
                             if(item.quantity <= 0){
                                 toRemoveIndex = index;
                             }
@@ -280,6 +324,8 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     if(toRemoveIndex !== -1){
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
+
+                    player.currentWeight = calculatePlayerWeight();
 
                     setUpdate(prev => {return {...prev}});
                 }
@@ -293,7 +339,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                             {popupTrigger.loot.map(item => {
                                 return(
                                     <button name={item.name} 
-                                        onMouseDown={removeItemBulk}
+                                        onClick={removeItemBulk}
                                         onContextMenu={removeItemSingle}
                                         className="item-button">
                                             {`${item.flavorName} x${item.quantity}`}

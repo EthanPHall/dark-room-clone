@@ -17,9 +17,12 @@
 
 /* Modal Content/Box */
 .modal-content-area {
+    position: relative;
+    
     background-color: #e5e5e5;
     border: 3px solid rgb(0, 0, 0);
     width: 30%; /* Could be more or less, depending on screen size */
+    top: 7vh;
     height: 70vh;
     margin-top: 7.5%;
     margin-left: 35%;
