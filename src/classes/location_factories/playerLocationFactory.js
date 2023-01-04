@@ -32,7 +32,17 @@ export class PlayerLocationFactory{
             // "food-9" : {"flavorName": "food-9", "quantity": 9},
         };
         newPlayer.maxCapacity = 15;
-        newPlayer.currentWeight = 0;
+        newPlayer.getCurrentWeight = function (){
+            let currentWeight = 0;
+            
+            Object.keys(this.inventory).forEach((key) => {
+                const weightMult = this.inventory[key].weight ? this.inventory[key].weight : 1;
+                currentWeight += this.inventory[key].quantity * weightMult;
+            }, 0);
+    
+            return currentWeight;
+        }
+    
 
         return newPlayer;
     }

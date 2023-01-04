@@ -81,17 +81,6 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
         }
     }, [update]);
 
-    function calculatePlayerWeight(){
-        let currentWeight = 0;
-        
-        Object.keys(player.inventory).forEach((key) => {
-            const weightMult = player.inventory[key].weight ? player.inventory[key].weight : 1;
-            currentWeight += player.inventory[key].quantity * weightMult;
-        }, 0);
-
-        return currentWeight;
-    }
-
     function generateScreen(){
         let content;
         let disableContinue = false;
@@ -256,6 +245,22 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     popupTrigger.loot = actualLoot;
                     popupTrigger.lootObject = lootObject;
                 }
+                if(player.lootUpdate){
+                    const lu = player.lootUpdate;
+                    let updateProcessed = false;
+                    popupTrigger.loot.forEach(item => {
+                        if(item.name === lu.name){
+                            updateProcessed = true;
+                            item.quantity += lu.quantity;
+                        }
+                    });
+                    
+                    if(!updateProcessed){
+                        popupTrigger.loot.push(lu);
+                    }
+
+                    delete player.lootUpdate;
+                }
                 
                 function removeItemBulk(evt){
                     //If this event wasn't triggered by the left mouse button, return without doing anything.
@@ -268,8 +273,12 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     let toRemoveIndex = -1;
                     popupTrigger.loot.forEach((item, index) => {
                         if(item.name === name){
-                            const remaining = Math.max(player.maxCapacity - player.currentWeight, 0);
+                            const remaining = Math.max(player.maxCapacity - player.getCurrentWeight(), 0);
                             const increment = Math.min(item.quantity, remaining);
+                            if(increment <= 0){
+                                return;
+                            }
+                            
                             item.quantity -= increment;
 
                             if(player.inventory[item.name]){
@@ -289,15 +298,13 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
                     
-                    player.currentWeight = calculatePlayerWeight();
-
                     setUpdate(prev => {return {...prev}});
                 }
                 function removeItemSingle(evt){
                     evt.stopPropagation();
                     evt.preventDefault();
 
-                    if(player.currentWeight >= player.maxCapacity){
+                    if(player.getCurrentWeight() >= player.maxCapacity){
                         return;
                     }
 
@@ -324,8 +331,6 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     if(toRemoveIndex !== -1){
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
-
-                    player.currentWeight = calculatePlayerWeight();
 
                     setUpdate(prev => {return {...prev}});
                 }

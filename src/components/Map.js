@@ -151,7 +151,8 @@ export default function Map(){
             <PlayerInventory 
                 inventory={player ? player.inventory : undefined} 
                 maxCapacity={player ? player.maxCapacity : undefined}
-                currentWeight={player ? player.currentWeight : undefined}
+                currentWeight={player ? player.getCurrentWeight() : undefined}
+                setPlayer={setPlayer}
                 ></PlayerInventory>
             <div className="map">
                 {rendered}

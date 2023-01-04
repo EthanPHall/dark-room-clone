@@ -20,9 +20,9 @@
 
     /* Position is determined inline in PlayerInventory.js */
 
-    color: var(--text-color);
+    color: var(--light-text-color);
 
-    font-size: medium;
+    font-size: smaller;
 
     display: flex;
     justify-content: center;
@@ -41,7 +41,7 @@
 
     font-size: medium;
 
-    color: var(--text-color);
+    color: var(--light-text-color);
     background-color: var(--bg-color);
 
     z-index: 3;
