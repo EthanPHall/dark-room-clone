@@ -1,0 +1,34 @@
+[
+    {
+        "name": "house-tier-1",
+        "flavorName": "pitiful rusted",
+        "hp": 5,
+        "hpMax": 5,
+        "damage": 1,
+        "attackDelay": 1.5,
+        "icon": "R",
+        "potentialFlavorTexts": [
+            "A robot shambles forward. Too rusted to reason with."
+        ],
+        "potentialAfterTexts": [
+            "Tanya mourns it as I pick it clean."
+        ],
+        "loot": "house-tier-1"
+    },
+    {
+        "name": "house-tier-2",
+        "flavorName": "mad rusted",
+        "hp": 6,
+        "hpMax": 6,
+        "damage": 1,
+        "attackDelay": 0.75,
+        "icon": "R",
+        "potentialFlavorTexts": [
+            "A cackling robot leaps out from behind a door. Not as frail as it looks."
+        ],
+        "potentialAfterTexts": [
+            "Good riddance."
+        ],
+        "loot": "house-tier-2"
+    }
+]

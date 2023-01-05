@@ -1,0 +1,32 @@
+[
+    {
+        "name": "house-tier-1",
+        "potentialLoot": 
+        [
+            {"name": "food-1", "quantityMax": 5, "quantityMin": 2, "chance": 1},
+            {"name": "scrap-1", "quantityMax": 10, "quantityMin": 4, "chance": 0.7},
+            {"name": "wood-1", "quantityMax": 10, "quantityMin": 4, "chance": 0.7}
+        ],
+        "message": "A few odds and ends."
+    },
+    {
+        "name": "house-tier-2",
+        "potentialLoot": 
+        [
+            {"name": "food-1", "quantityMax": 8, "quantityMin": 4, "chance": 1},
+            {"name": "scrap-1", "quantityMax": 13, "quantityMin": 6, "chance": 0.9},
+            {"name": "wood-1", "quantityMax": 13, "quantityMin": 6, "chance": 0.9},
+            {"name": "lashing-1", "quantityMax": 2, "quantityMin": 1, "chance": 0.5},
+            {"name": "electronic-1", "quantityMax": 1, "quantityMin": 1, "chance": 0.1}
+        ],
+        "message": "Stash under the floor."
+    },
+    {
+        "name": "default",
+        "potentialLoot": 
+        [
+            {"name": "food-1", "quantityMax": 4, "quantityMin": 1, "chance": 1}
+        ],
+        "message": "Slim pickings."
+    }
+]

@@ -5,5 +5,5 @@
     "seedLocationsToSizeRatio": 1,
     "explorableLocationsToSizeRatio": 2,
     "floatingLocationsPerLocationTypePercentage": ".2",
-    "floatingLocationsExcludeBrackets": [0,1]
+    "floatingLocationsExcludeBrackets": [0]
 }

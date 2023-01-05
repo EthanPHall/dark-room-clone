@@ -1,0 +1,26 @@
+[
+    {
+        "name": "food-1",
+        "flavorName": "food"
+    },
+    {
+        "name": "scrap-1",
+        "flavorName": "scrap"
+    },
+    {
+        "name": "wood-1",
+        "flavorName": "wood"
+    },
+    {
+        "name": "lashing-1",
+        "flavorName": "lashing"
+    },
+    {
+        "name": "electronic-1",
+        "flavorName": "component"
+    },
+    {
+        "name": "default",
+        "flavorName": "default"
+    }
+]

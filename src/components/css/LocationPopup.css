@@ -1,0 +1,314 @@
+*{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* The Modal (background) */
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+/* Modal Content/Box */
+.modal-content-area {
+    position: relative;
+    
+    background-color: #e5e5e5;
+    border: 3px solid rgb(0, 0, 0);
+    width: 30%; /* Could be more or less, depending on screen size */
+    top: 7vh;
+    height: 70vh;
+    margin-top: 7.5%;
+    margin-left: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(31, 31, 31);
+    font-size: medium;
+  }
+  
+.title{
+    /* border: 3px solid rgb(255, 0, 0); */
+
+    position: relative;
+    top: -5%;
+    left: 0%;
+    width: 90%;
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+    font-size: larger;
+}
+
+.content{
+    /* border: 3px solid rgb(0, 0, 0); */
+    
+    position: relative;
+    top: -5%;
+    width: 90%;
+    height: 70%;
+    line-height: normal;
+    margin: 0;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.action-panel{
+    /* border: 3px solid rgb(0, 0, 0); */
+
+    width: 100%;
+    height: 25%;
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .combatant{
+        /* border: 3px solid rgb(0, 0, 0); */
+        width: 50%;
+        height: 70%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .combatant-icon{
+        /* border: 3px solid rgb(0, 0, 0); */
+        width: 50%;
+        height: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .combatant-health{
+        /* border: 3px solid rgb(0, 0, 0); */
+        width: 50%;
+        height: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+.controls-panel{
+    border: 3px solid rgb(0, 0, 0);
+
+    width: 100%;
+    height: 45%;
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text-panel{
+    /* border: 3px solid rgb(0, 0, 0); */
+
+    width: 100%;
+    height: 20%;
+    line-height: normal;
+    font-size: medium;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.loot-panel{
+    border: 3px solid rgb(0, 0, 0);
+
+    width: 100%;
+    height: 100%;
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+    .item-button{
+        width: 80%;
+        height: 10%;
+        margin-top: 5%;
+    }
+    .item-button ~ .item-button{
+        margin-top: 2%;
+    }
+
+
+.play-area{
+    /* border: 3px solid rgb(0, 0, 0); */
+    
+    position: relative;
+    width: 90%;
+    height: 60%;
+    top: 0%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    /* border: 3px solid rgb(0, 0, 0); */
+
+    width: 90%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-btn{
+    width: 40%;
+    height: 50%;
+}
+
+.back-btn{
+    background-color: rgb(245, 176, 176);
+}
+.back-btn:hover{
+    background-color: rgb(225, 156, 156);
+}
+.back-btn:active:hover{
+    background-color: rgb(205, 136, 136);
+}
+.back-btn:active:disabled, .back-btn:disabled{
+    background-color: rgb(135, 116, 116);
+    color: rgb(202, 202, 202);
+}
+
+.continue-btn{
+    background-color: rgb(187, 245, 176);
+}
+.continue-btn:hover{
+    background-color: rgb(167, 225, 156);
+}
+.continue-btn:active:hover{
+    background-color: rgb(147, 205, 136);
+}
+.continue-btn:active:disabled, .continue-btn:disabled{
+    background-color: rgb(119, 144, 114);
+    color: rgb(202, 202, 202);
+}
+
+
+.attacks-panel{
+    position: relative;
+
+    /* border: 3px solid rgb(51, 255, 0); */
+
+    width: 100%;
+    height: 45%;
+    line-height: normal;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+    .attack-button-holder{
+        /* border: 3px solid rgb(255, 0, 0); */
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .attack-button-cooldown-graphic, .attack-button{
+        position: absolute;
+
+        width: 35%;
+        height: 20%;
+
+        /* Position is determined inline in LocationPopupManager.js */
+    }
+
+    .attack-button-cooldown-graphic{
+        background-color: rgba(128, 128, 128, 0);
+        z-index: -1;
+    }
+    .attack-button-cooldown-graphic[showcooldown="yes"]{
+        background-color: rgba(128, 128, 128, .5);
+        z-index: 2;
+    }
+
+    .attack-button{
+        background-color: rgb(248, 248, 248);
+        z-index: 1;
+    }
+    .attack-button:hover{
+        background-color: rgb(232, 232, 232);
+    }
+    .attack-button:active:hover{
+        background-color: rgb(210, 210, 210);
+    }
+    .attack-button~.attack-button{
+        margin-top: 2%;
+    }
+    .attack-button:disabled{
+        background-color: rgb(210, 210, 210);
+    }
+.attacking{
+    animation: PlayerAttackAnim .4s;
+}
+.enemy-attacking{
+    animation: EnemyAttackAnim .4s;
+}
+.enemy-attacking-2{
+    /*
+        Why do there need to be 2 separate animations??? If I only use EnemyAttackAnim,
+        then the component with this class AND the regular class doesn't actually get animated.
+    */
+    animation: EnemyAttackAnim2 .4s;
+}
+.death{
+    animation: DeathAnim .5s forwards;
+}
+
+@keyframes PlayerAttackAnim {
+        0%{
+            transform: translateX(0%);
+        }
+        50% {
+            transform: translateX(40%);
+        }
+    }
+@keyframes EnemyAttackAnim {
+        0%{
+            transform: translateX(0%);
+        }
+        50% {
+            transform: translateX(-40%);
+        }
+    }
+@keyframes EnemyAttackAnim2 {
+        0%{
+            transform: translateX(0%);
+        }
+        50% {
+            transform: translateX(-40%);
+        }
+    }
+@keyframes DeathAnim {
+        0%{
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    

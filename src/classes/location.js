@@ -36,4 +36,20 @@
         const result = new Location({...this.baseLocation}, this.x, this.y, this.distanceFromCenter);
         return result;
     }
+
+    getFullClone(){
+        //Make a new Location, then For each field in the original, copy that value to the new Location
+        const result = new Location();
+        Object.keys(this).forEach(key => {
+            if(typeof this[key] === "object"){
+                result[key] = {...this[key]};
+            }else if (Array.isArray(this[key])){
+                result[key] = [...this[key]];
+            }else{
+                result[key] = this[key];
+            }
+        });
+        
+        return result;
+    }
 }

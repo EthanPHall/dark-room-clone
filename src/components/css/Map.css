@@ -3,8 +3,14 @@
 }
 
 .map{
+    border: 1px solid rgb(107, 125, 140);
+
     font-family: 'Courier New', Courier, monospace;
-    color: rgb(107, 125, 140);
+    color: rgb(102, 119, 132);
+
+    padding-top: 6px;
+
+    width: 100%;
 }
 
 div, span{
@@ -34,13 +40,13 @@ div{
 .bg_2{
     color: rgb(95, 87, 79);
     color: rgb(76, 91, 104);
-    color: rgb(164, 126, 83);
+    color: rgb(143, 120, 93);
 }
 
 .bg_3{
     color: rgb(62, 89, 80);
     color: rgb(76, 91, 104);
-    color: rgb(13, 124, 104);
+    color: rgb(30, 112, 97);
 }
 
 .debug0{
