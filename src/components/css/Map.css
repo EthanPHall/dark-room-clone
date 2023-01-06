@@ -3,7 +3,7 @@
 }
 
 .map{
-    border: 1px solid rgb(107, 125, 140);
+    /* border: 1px solid rgb(107, 125, 140); */
 
     font-family: 'Courier New', Courier, monospace;
     color: rgb(102, 119, 132);
@@ -11,10 +11,15 @@
     padding-top: 6px;
 
     width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 div, span{
-    font-size: 1.05em;
+    font-size: 1.02em;
 }
 
 span{
@@ -108,4 +113,40 @@ div{
 .end{
     color: red;
     font-weight: bold;
+}
+
+.game-screen{
+    /* background-color: aliceblue; */
+
+    width: 80vw;
+    height: 95vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.left, .right{
+    height: 90%;
+    width: 20%;
+}
+
+.left{
+    /* background-color: pink; */
+}
+
+.middle{
+    /* background-color: green; */
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.right{
+    /* background-color: orange; */
 }

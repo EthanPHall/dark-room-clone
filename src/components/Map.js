@@ -12,6 +12,7 @@ import PlayerInventory from "../classes/player-inventory/PlayerInventory";
 import { Vector2 } from "../classes/vector2";
 import mapConfig from "../config/mapConfig.json";
 import "./css/Map.css";
+import HomeBase from "./HomeBase";
 import LocationPopupManager from "./LocationPopupManager";
 
 //This needs to be out here because we don't want the renderer resetting every time this component
@@ -29,6 +30,7 @@ export default function Map(){
     const [player, setPlayer] = useState();
     const [movementHasBeenSetUp, setMovementHasBeenSetUp] = useState(false);
     const [popupTrigger, setPopupTrigger] = useState(undefined);
+    const [renderMode, setRenderMode] = useState("map");
         
     useEffect(() => {
         const newMap = new MapClass();
@@ -147,19 +149,36 @@ export default function Map(){
     locationHandler.triggerLocationPopup = triggerLocationPopup;
 
     return(
-        <div>
-            <PlayerInventory 
-                inventory={player ? player.inventory : undefined} 
-                maxCapacity={player ? player.maxCapacity : undefined}
-                currentWeight={player ? player.getCurrentWeight() : undefined}
-                setPlayer={setPlayer}
-                ></PlayerInventory>
-            <div className="map">
-                {rendered}
-                <LocationPopupManager 
-                    popupTrigger={popupTrigger} 
-                    untriggerPopup={untriggerLocationPopup} 
-                    player={player} setPlayer={setPlayer}></LocationPopupManager>
+        <div className="game-screen">
+            <div className="left">
+                Left
+            </div>
+            <div className="middle">
+                {renderMode === "map" && (
+                    <>
+                        <PlayerInventory 
+                            inventory={player ? player.inventory : undefined} 
+                            maxCapacity={player ? player.maxCapacity : undefined}
+                            currentWeight={player ? player.getCurrentWeight() : undefined}
+                            setPlayer={setPlayer}
+                            ></PlayerInventory>
+                        <div className="map">
+                            {rendered}
+                            <LocationPopupManager 
+                                popupTrigger={popupTrigger} 
+                                untriggerPopup={untriggerLocationPopup} 
+                                player={player} setPlayer={setPlayer}></LocationPopupManager>
+                        </div>
+                    </>
+                )}
+                {renderMode === "home base" && (
+                    <>
+                        <HomeBase></HomeBase>
+                    </>
+                )}
+            </div>
+            <div className="right">
+                Right
             </div>
         </div>
     )

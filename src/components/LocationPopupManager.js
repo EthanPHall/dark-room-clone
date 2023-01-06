@@ -202,7 +202,8 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                         <button 
                                             style={style} 
                                             className="attack-button" 
-                                            onClick={attack} 
+                                            onMouseDown={attack} 
+                                            onMouseUp={attack}
                                             weapon-index={index} 
                                             cooldown={weapon.cooldown} 
                                             damage={weapon.damage}
