@@ -81,6 +81,10 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
         }
     }, [update]);
 
+    function forceUpdate(){
+        setUpdate(prev => {return {...prev}});
+    }
+
     function generateScreen(){
         let content;
         let disableContinue = false;
@@ -107,6 +111,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     if(!enemy.attackTimeout){
                         enemy.attackTimeout = setTimeout(() => {
                             pCombat.hp -= enemy.damage;
+                            
                             setEnemyAttacking(prev => {
                                 if(prev === "enemy-attacking"){
                                     return "enemy-attacking-2";
@@ -114,10 +119,11 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                     return "enemy-attacking";
                                 }
                             });
-
+                            
                             enemy.attackTimeout = setInterval(() => {
                                 if(enemy.hp > 0){
                                     pCombat.hp -= enemy.damage;
+                                    
                                     setEnemyAttacking(prev => {
                                         if(prev === "enemy-attacking"){
                                             return "enemy-attacking-2";
@@ -299,7 +305,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
                     
-                    setUpdate(prev => {return {...prev}});
+                    forceUpdate();
                 }
                 function removeItemSingle(evt){
                     evt.stopPropagation();
@@ -333,7 +339,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
 
-                    setUpdate(prev => {return {...prev}});
+                    forceUpdate();
                 }
 
                 content = (

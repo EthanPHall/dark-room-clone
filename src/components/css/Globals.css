@@ -1,5 +1,10 @@
 :root{
-    --bg-color: rgb(15, 15, 22);
+    --bg-color: rgba(15, 15, 22, 1);
+    --bg-color-transparent: rgb(15, 15, 22, 0);
     --light-text-color:rgb(187, 197, 202);
+    --light-bg-color: #e5e5e5;
+    --light-bg-color-2: #cacdcd;
+    --light-bg-color-3: #acb2b2;
+    --dark-text-color: rgb(31, 31, 31);
 }
   

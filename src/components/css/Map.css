@@ -116,8 +116,6 @@ div{
 }
 
 .game-screen{
-    /* background-color: aliceblue; */
-
     width: 80vw;
     height: 95vh;
 
@@ -132,12 +130,7 @@ div{
     width: 20%;
 }
 
-.left{
-    /* background-color: pink; */
-}
-
 .middle{
-    /* background-color: green; */
     height: 100%;
     width: 60%;
 
@@ -148,5 +141,8 @@ div{
 }
 
 .right{
-    /* background-color: orange; */
+    margin-left: 1%;
+}
+.left{
+    margin-right: 1%;
 }

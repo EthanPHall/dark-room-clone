@@ -1,0 +1,38 @@
+.grouping-box{
+    position: relative;
+    border: 1px solid rgb(107, 125, 140);
+    display: flex;
+
+    /* Width and height determined in-line */
+}
+
+.gbox-item{
+    position: absolute;
+
+    height: 40%;
+    width: 20%;
+
+    color: var(--light-text-color);
+
+    font-size: smaller;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gbox-title{
+    position: absolute;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    line-height: normal;
+
+    font-size: medium;
+
+    color: var(--light-text-color);
+    background-color: var(--bg-color);
+    
+    /* Positioning done in-line */
+}

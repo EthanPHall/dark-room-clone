@@ -30,7 +30,7 @@
     z-index: 2;
 }
 
-.inventory-title, .inventory-capacity{
+.inventory-title, .inventory-capacity, .inventory-health{
     position: absolute;
     top: -15%;
 
@@ -48,6 +48,9 @@
 }
 .inventory-title{
     left: 1%;
+}
+.inventory-health{
+    left: 30%;
 }
 .inventory-capacity{
     right: 1%;

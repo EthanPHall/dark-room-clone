@@ -12,8 +12,10 @@ import PlayerInventory from "../classes/player-inventory/PlayerInventory";
 import { Vector2 } from "../classes/vector2";
 import mapConfig from "../config/mapConfig.json";
 import "./css/Map.css";
+import GroupingBox from "./GroupingBox";
 import HomeBase from "./HomeBase";
 import LocationPopupManager from "./LocationPopupManager";
+import MessagesArea from "./MessagesArea";
 
 //This needs to be out here because we don't want the renderer resetting every time this component
 //saves.    
@@ -30,7 +32,8 @@ export default function Map(){
     const [player, setPlayer] = useState();
     const [movementHasBeenSetUp, setMovementHasBeenSetUp] = useState(false);
     const [popupTrigger, setPopupTrigger] = useState(undefined);
-    const [renderMode, setRenderMode] = useState("map");
+    const [renderMode, setRenderMode] = useState("home base");
+    const [baseDefaultScreen, setBaseDefaultScreen] = useState("sled");
         
     useEffect(() => {
         const newMap = new MapClass();
@@ -102,6 +105,19 @@ export default function Map(){
         }
     }, [player]);
 
+    useEffect(() => {
+        if(player){
+            setPlayer(prev => {
+                const newPlayer = prev.getFullClone();
+                newPlayer.movedLastTurn = false;
+
+                newPlayer.combatantStats.hp = newPlayer.combatantStats.hpMax;
+
+                return newPlayer;
+            });
+        }
+    }, [renderMode]);
+
     function movePlayer(positionDelta){
         setPlayer(prev => {
             if(prev.stopMovement){
@@ -147,11 +163,13 @@ export default function Map(){
     }
 
     locationHandler.triggerLocationPopup = triggerLocationPopup;
+    locationHandler.setMapRenderMode = setRenderMode;
+    locationHandler.setBaseDefaultScreen = setBaseDefaultScreen;
 
     return(
         <div className="game-screen">
             <div className="left">
-                Left
+                <MessagesArea></MessagesArea>
             </div>
             <div className="middle">
                 {renderMode === "map" && (
@@ -161,6 +179,8 @@ export default function Map(){
                             maxCapacity={player ? player.maxCapacity : undefined}
                             currentWeight={player ? player.getCurrentWeight() : undefined}
                             setPlayer={setPlayer}
+                            health={player ? player.combatantStats.hp : undefined}
+                            maxHealth={player ? player.combatantStats.hpMax : undefined}
                             ></PlayerInventory>
                         <div className="map">
                             {rendered}
@@ -173,12 +193,14 @@ export default function Map(){
                 )}
                 {renderMode === "home base" && (
                     <>
-                        <HomeBase></HomeBase>
+                        <HomeBase setRenderMode={setRenderMode} defaultScreen={baseDefaultScreen}></HomeBase>
                     </>
                 )}
             </div>
             <div className="right">
-                Right
+                <GroupingBox 
+                    boxStats={{width: "100%", height: "100%"}}
+                    titleStats={{top: "-1.5%", left: "3%", title: "Stores"}}></GroupingBox>
             </div>
         </div>
     )
