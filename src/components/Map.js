@@ -16,6 +16,7 @@ import GroupingBox from "./GroupingBox";
 import HomeBase from "./HomeBase";
 import LocationPopupManager from "./LocationPopupManager";
 import MessagesArea from "./MessagesArea";
+import Stores from "./Stores";
 
 //This needs to be out here because we don't want the renderer resetting every time this component
 //saves.    
@@ -34,7 +35,8 @@ export default function Map(){
     const [popupTrigger, setPopupTrigger] = useState(undefined);
     const [renderMode, setRenderMode] = useState("home base");
     const [baseDefaultScreen, setBaseDefaultScreen] = useState("sled");
-        
+    const [stores, setStores] = useState({});
+
     useEffect(() => {
         const newMap = new MapClass();
         newMap
@@ -193,14 +195,18 @@ export default function Map(){
                 )}
                 {renderMode === "home base" && (
                     <>
-                        <HomeBase setRenderMode={setRenderMode} defaultScreen={baseDefaultScreen}></HomeBase>
+                        <HomeBase 
+                            setRenderMode={setRenderMode} 
+                            defaultScreen={baseDefaultScreen}
+                            player={player}
+                            setPlayer={setPlayer}
+                            stores={stores}
+                            setStores={setStores}></HomeBase>
                     </>
                 )}
             </div>
             <div className="right">
-                <GroupingBox 
-                    boxStats={{width: "100%", height: "100%"}}
-                    titleStats={{top: "-1.5%", left: "3%", title: "Stores"}}></GroupingBox>
+                <Stores stores={stores} setStores={setStores}></Stores>
             </div>
         </div>
     )

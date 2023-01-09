@@ -2,8 +2,37 @@ import { useEffect, useState } from "react";
 import "./css/HomeBase.css";
 import CaravanProfession from "./HomeBase/CaravanProfession";
 
-function HomeBase({setRenderMode, defaultScreen}){
+function HomeBase({setRenderMode, defaultScreen, player, setPlayer, setStores}){
     const [screenToRender, setScreenToRender] = useState(undefined);
+
+    useEffect(() => {
+        if(!player){
+            return;
+        }
+
+        setStores(prev => {
+            const newStores = {...prev};
+
+            Object.keys(player.inventory).forEach(key => {
+                if(newStores[key]){
+                    newStores[key].quantity += player.inventory[key].quantity;
+                }else{
+                    newStores[key] = player.inventory[key];
+                }           
+            });
+
+            console.log(newStores);
+
+            setPlayer(prev => {
+                const newPlayer = prev.getFullClone();
+                newPlayer.inventory = {};
+    
+                return newPlayer;
+            });
+    
+            return newStores;
+        });
+    }, []);
 
     useEffect(() => {
         setScreenToRender(defaultScreen);
