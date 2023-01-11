@@ -19,8 +19,8 @@ function CaravanProfession({name, value, onlyLabel}){
             <div className="caravan-profession-name">{name}</div>
             <div className="caravan-profession-value">{value}</div>
             {!onlyLabel && <div className="caravan-profession-controls">
-                <button><i class="caravan-profession-up" onClick={increment}></i></button>
-                <button><i class="caravan-profession-down" onClick={decrement}></i></button>
+                <button><i className="caravan-profession-up" onClick={increment}></i></button>
+                <button><i className="caravan-profession-down" onClick={decrement}></i></button>
             </div>}
         </div>
         </>

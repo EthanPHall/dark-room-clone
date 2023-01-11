@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import seedrandom from "seedrandom";
+import { useContext, useEffect, useState } from "react";
 import { LocationHandlerChain } from "../classes/location-handling/locationHandlerChain";
 import { PlayerLocationFactory } from "../classes/location_factories/playerLocationFactory";
 import { FullMapRenderer } from "../classes/map-renderers/fullMapRenderer";
@@ -16,42 +15,42 @@ import GroupingBox from "./GroupingBox";
 import HomeBase from "./HomeBase";
 import LocationPopupManager from "./LocationPopupManager";
 import MessagesArea from "./MessagesArea";
+import Options from "./Options";
+import RngContext from "./RngContext";
 import Stores from "./Stores";
 
-//This needs to be out here because we don't want the renderer resetting every time this component
-//saves.    
-// const mapRenderer = new NearPlayerRenderer_FogOfWar(mapConfig.zonesPerRow * mapConfig.zoneSize);
-const mapRenderer = new NearPlayerRenderer(mapConfig.zonesPerRow * mapConfig.zoneSize);
-const locationHandler = new LocationHandlerChain();
 
 export default function Map(){
-    const RNG = seedrandom(mapConfig.seed);
-
+    const {rng} = useContext(RngContext);
+    const [reset, setReset] = useState(false);
     const [map, setMap] = useState(undefined);
     const [rendered, setRendered] = useState(<div>Map</div>);
     const [hasRendered, setHasRendered] = useState(false);
-    const [player, setPlayer] = useState();
+    const [player, setPlayer] = useState(undefined);
     const [movementHasBeenSetUp, setMovementHasBeenSetUp] = useState(false);
     const [popupTrigger, setPopupTrigger] = useState(undefined);
     const [renderMode, setRenderMode] = useState("home base");
     const [baseDefaultScreen, setBaseDefaultScreen] = useState("sled");
     const [stores, setStores] = useState({});
+    const [mapRenderer, setMapRenderer] = useState(new NearPlayerRenderer(mapConfig.zonesPerRow * mapConfig.zoneSize));
+    const [locationHandler, setLocationHandler] = useState(new LocationHandlerChain());
 
-    useEffect(() => {
+    function init(){
+
         const newMap = new MapClass();
         newMap
             .generateZones(mapConfig.zoneSize, mapConfig.zonesPerRow)
             .generateBaseMap()
-            .generateBGLocations(mapConfig.seedLocationsToSizeRatio, RNG)
-            .generateExplorableLocations(mapConfig.explorableLocationsToSizeRatio, RNG)
-            .generateBigObstacle(RNG)
+            .generateBGLocations(mapConfig.seedLocationsToSizeRatio, rng)
+            .generateExplorableLocations(mapConfig.explorableLocationsToSizeRatio, rng)
+            .generateBigObstacle(rng)
             .generateHome()
             .generateEnd()
             .build();
         
         newMap
             .modify_AddFloatingLocations(mapConfig.floatingLocationsPerLocationTypePercentage, 
-                mapConfig.floatingLocationsExcludeBrackets, RNG)
+                mapConfig.floatingLocationsExcludeBrackets, rng)
             .modify_Finish();
         
         console.log(newMap);
@@ -89,7 +88,25 @@ export default function Map(){
                 }
             }
         }
+
+        setRenderMode("home base");
+        setBaseDefaultScreen("sled");
+        setPopupTrigger(undefined);
+        setStores({});
+        setMapRenderer(new NearPlayerRenderer(mapConfig.zonesPerRow * mapConfig.zoneSize));
+    }
+
+    useEffect(() => {
+        init();
     }, []);
+
+    useEffect(() => {
+        if(reset){
+            init();
+
+            setReset(false);
+        }
+    }, [reset])
 
     useEffect(() => {
         if(map){
@@ -208,6 +225,7 @@ export default function Map(){
             <div className="right">
                 <Stores stores={stores} setStores={setStores}></Stores>
             </div>
+            <Options setReset={setReset}></Options>
         </div>
     )
 }

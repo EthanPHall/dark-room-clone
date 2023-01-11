@@ -7,4 +7,21 @@
     --light-bg-color-3: #acb2b2;
     --dark-text-color: rgb(31, 31, 31);
 }
+
+.underline-button{
+    background: none;
+	color: var(--light-text-color);
+	border: none;
+	padding: 0;
+
+    font-size: large;
+}
+
+.underline-button:hover{
+    background: none;
+    text-decoration: underline;
+}
+.underline-button:hover:active{
+    background: none;
+}
   

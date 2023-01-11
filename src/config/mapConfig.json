@@ -1,9 +1,8 @@
 {
     "zoneSize": 11,
     "zonesPerRow": 5,
-    "seed": "12345678901",
-    "seedLocationsToSizeRatio": 1,
-    "explorableLocationsToSizeRatio": 2,
+    "seedLocationsToSizeRatio": 0.85,
+    "explorableLocationsToSizeRatio": 1.5,
     "floatingLocationsPerLocationTypePercentage": ".2",
     "floatingLocationsExcludeBrackets": [0]
 }
