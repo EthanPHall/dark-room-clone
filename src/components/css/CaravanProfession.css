@@ -1,0 +1,64 @@
+.caravan-profession{
+    width: 100%;
+    height: 5%;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+.caravan-profession-name{
+    width: 40%;
+}
+.caravan-profession-value{
+    width: 40%;
+    text-align: right;
+}
+.caravan-profession-controls{
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.caravan-profession-controls button{
+    background: none;
+    border: none;
+    padding: 0;
+}
+.caravan-profession-controls button:hover{
+    background: none;
+    border: none;
+    padding: 0;
+}
+.caravan-profession-controls button:hover:active{
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Arrows from: https://www.w3schools.com/howto/howto_css_arrows.asp */
+.caravan-profession-up{
+    position: relative;
+
+    border: solid var(--light-text-color);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;      
+
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);  
+}
+.caravan-profession-down{
+    position: relative;
+
+    border: solid var(--light-text-color);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;      
+
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+
+    margin-left: 100%;
+}

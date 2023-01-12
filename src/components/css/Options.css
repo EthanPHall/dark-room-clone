@@ -1,0 +1,16 @@
+.options-bar{
+    position: absolute;
+    
+    width: 90%;
+    height: 3%;
+    top: 96%;
+
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.options-bar button{
+    font-size: medium;
+    margin-left: 2%;
+}

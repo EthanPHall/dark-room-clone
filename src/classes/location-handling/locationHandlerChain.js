@@ -1,6 +1,7 @@
 import { HandleExplorable } from "./locationHandler_Explorable";
 import { HandleFalsy } from "./locationHandler_Falsy";
 import { HandleForest } from "./locationHandler_Forest";
+import { HandleHome } from "./locationHandler_Home";
 import { HandleHouse } from "./locationHandler_House";
 import { HandlePlains } from "./locationHandler_Plains";
 import { HandleTundra } from "./locationHandler_Tundra";
@@ -17,6 +18,8 @@ export class LocationHandlerChain{
         this.addLink(new HandleHouse());
 
         this.addLink(new HandleExplorable(this));
+        
+        this.addLink(new HandleHome(this));
     }
 
     addLink(newLink){

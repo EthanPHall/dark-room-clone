@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import seedrandom from "seedrandom";
+import { useContext, useEffect, useState } from "react";
 import { LocationPopupTemplateFatory } from "../classes/location-popup/locationPopupTemplateFactory";
 import "./css/LocationPopup.css";
 import mapConfig from "../config/mapConfig.json";
@@ -8,13 +7,8 @@ import { ScreenFactory } from "../classes/location-popup/screenGeneration/screen
 import { CombatantFactory } from "../classes/combat/combatantFactory";
 import { LootFactory } from "../classes/loot/lootfactory";
 import { ItemList } from "../classes/items/itemList";
+import RngContext from "./RngContext";
 // import { LootContentGenerator } from "../classes/loot/lootContentGenerator";
-
-const rng = seedrandom(mapConfig.seed);
-
-const templateFactory = new LocationPopupTemplateFatory(rng);
-const screenFactory = new ScreenFactory(rng);
-const combatantFactory = new CombatantFactory(rng);
 
 export default function LocationPopupManager({popupTrigger, untriggerPopup, player, setPlayer}){    
     const [screenIndex, setScreenIndex] = useState(-1);
@@ -23,6 +17,11 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
     const [weaponsOnCooldown, setWeaponsOnCooldown] = useState({});
     const [attacking, setAttacking] = useState("uninitialized");
     const [enemyAttacking, setEnemyAttacking] = useState("uninitialized");
+    
+    const {rng} = useContext(RngContext);
+    const templateFactory = new LocationPopupTemplateFatory(rng);
+    const screenFactory = new ScreenFactory(rng);
+    const combatantFactory = new CombatantFactory(rng);
     
     useEffect(() => {
         if(popupTrigger && popupTrigger.enemyCombatant && popupTrigger.enemyCombatant.attackTimeout){
@@ -81,6 +80,10 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
         }
     }, [update]);
 
+    function forceUpdate(){
+        setUpdate(prev => {return {...prev}});
+    }
+
     function generateScreen(){
         let content;
         let disableContinue = false;
@@ -107,6 +110,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                     if(!enemy.attackTimeout){
                         enemy.attackTimeout = setTimeout(() => {
                             pCombat.hp -= enemy.damage;
+                            
                             setEnemyAttacking(prev => {
                                 if(prev === "enemy-attacking"){
                                     return "enemy-attacking-2";
@@ -114,10 +118,11 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                     return "enemy-attacking";
                                 }
                             });
-
+                            
                             enemy.attackTimeout = setInterval(() => {
                                 if(enemy.hp > 0){
                                     pCombat.hp -= enemy.damage;
+                                    
                                     setEnemyAttacking(prev => {
                                         if(prev === "enemy-attacking"){
                                             return "enemy-attacking-2";
@@ -202,7 +207,8 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                                         <button 
                                             style={style} 
                                             className="attack-button" 
-                                            onClick={attack} 
+                                            onMouseDown={attack} 
+                                            onMouseUp={attack}
                                             weapon-index={index} 
                                             cooldown={weapon.cooldown} 
                                             damage={weapon.damage}
@@ -298,7 +304,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
                     
-                    setUpdate(prev => {return {...prev}});
+                    forceUpdate();
                 }
                 function removeItemSingle(evt){
                     evt.stopPropagation();
@@ -332,7 +338,7 @@ export default function LocationPopupManager({popupTrigger, untriggerPopup, play
                         popupTrigger.loot.splice(toRemoveIndex, 1);
                     }
 
-                    setUpdate(prev => {return {...prev}});
+                    forceUpdate();
                 }
 
                 content = (

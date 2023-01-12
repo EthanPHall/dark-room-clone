@@ -3,7 +3,7 @@
 }
 
 .map{
-    border: 1px solid rgb(107, 125, 140);
+    /* border: 1px solid rgb(107, 125, 140); */
 
     font-family: 'Courier New', Courier, monospace;
     color: rgb(102, 119, 132);
@@ -11,10 +11,15 @@
     padding-top: 6px;
 
     width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 div, span{
-    font-size: 1.05em;
+    font-size: 1.02em;
 }
 
 span{
@@ -38,15 +43,11 @@ div{
 }
 
 .bg_2{
-    color: rgb(95, 87, 79);
-    color: rgb(76, 91, 104);
-    color: rgb(143, 120, 93);
+    color: rgb(120, 121, 111);
 }
 
 .bg_3{
-    color: rgb(62, 89, 80);
-    color: rgb(76, 91, 104);
-    color: rgb(30, 112, 97);
+    color: rgb(30, 112, 112);
 }
 
 .debug0{
@@ -108,4 +109,36 @@ div{
 .end{
     color: red;
     font-weight: bold;
+}
+
+.game-screen{
+    width: 80vw;
+    height: 95vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.left, .right{
+    height: 90%;
+    width: 20%;
+}
+
+.middle{
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.right{
+    margin-left: 1%;
+}
+.left{
+    margin-right: 1%;
 }

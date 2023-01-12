@@ -5,7 +5,7 @@ const NUMBER_OF_ROWS = 2;
 const HORIZONTAL_INCREMENT = 100 / ENTRIES_PER_ROW;
 const TOOLTIP_VERTCIAL_OFFSET = 85;
 
-function PlayerInventory({inventory, maxCapacity, currentWeight, setPlayer}){
+function PlayerInventory({inventory, maxCapacity, currentWeight, setPlayer, health, maxHealth}){
     
     function removeFromInventory(name, amount){        
         //Inventory weight calculations aren't done in this file, as of 1-4-23 they're done
@@ -49,6 +49,7 @@ function PlayerInventory({inventory, maxCapacity, currentWeight, setPlayer}){
         <>
             <div className="inventory">
                 <div className="inventory-title">Inventory</div>
+                <div className="inventory-health">HP: {health || 0}/{maxHealth}</div>
                 <div className="inventory-capacity">{currentWeight || 0}/{maxCapacity}</div>
                 {inventory && Object.keys(inventory).map((key, index) => {
                     if(index >= NUMBER_OF_ROWS * ENTRIES_PER_ROW){
